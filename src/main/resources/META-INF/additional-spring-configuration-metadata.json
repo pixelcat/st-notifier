@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "com.amazonaws.accessKey",
+      "type": "java.lang.String",
+      "description": "Description for com.amazonaws.accessKey."
+    },
+    {
+      "name": "com.amazonaws.secretKey",
+      "type": "java.lang.String",
+      "description": "Description for com.amazonaws.secretKey."
+    },
+    {
+      "name": "com.amazonaws.useLocal",
+      "type": "java.lang.String",
+      "description": "Description for com.amazonaws.useLocal."
+    }
+  ]
+}
