@@ -23,7 +23,6 @@ public class MessageController
 {
     private static Logger log = LoggerFactory.getLogger(MessageController.class);
 
-    @Autowired
     private STMessageRepository stMessageRepository;
 
     @RequestMapping(path = "/message", method = RequestMethod.POST)
@@ -79,5 +78,11 @@ public class MessageController
         stMessageRepository.insert(message);
 
         return message;
+    }
+
+    @Autowired
+    public void setStMessageRepository(@SuppressWarnings("SpringJavaAutowiringInspection") STMessageRepository stMessageRepository)
+    {
+        this.stMessageRepository = stMessageRepository;
     }
 }

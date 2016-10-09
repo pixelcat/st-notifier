@@ -18,10 +18,10 @@ import org.springframework.stereotype.Component;
 public class DisplayScheduledTask
 {
     private static Logger log = LoggerFactory.getLogger(DisplayScheduledTask.class);
-    @Autowired
-    private STMessageRepository stMessageRepository;
 
-    @Autowired MessageRenderer messageRenderer;
+
+    private STMessageRepository stMessageRepository;
+    private MessageRenderer messageRenderer;
 
     @Scheduled(fixedDelay = 5000)
     public synchronized void displayMessages() throws InterruptedException
@@ -44,6 +44,18 @@ public class DisplayScheduledTask
     private void doDisplayMessage(STMessage message) throws InterruptedException
     {
         messageRenderer.render(message.getBody());
-
     }
+
+    @Autowired
+    public void setStMessageRepository(@SuppressWarnings("SpringJavaAutowiringInspection") STMessageRepository stMessageRepository)
+    {
+        this.stMessageRepository = stMessageRepository;
+    }
+
+    @Autowired
+    public void setMessageRenderer(MessageRenderer messageRenderer)
+    {
+        this.messageRenderer = messageRenderer;
+    }
+
 }

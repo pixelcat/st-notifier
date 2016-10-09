@@ -2,7 +2,6 @@ package org.menagerie.stnotifier;
 
 import org.menagerie.stnotifier.console.SwingRenderTarget;
 import org.menagerie.stnotifier.renderer.SwingMessageRenderer;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
