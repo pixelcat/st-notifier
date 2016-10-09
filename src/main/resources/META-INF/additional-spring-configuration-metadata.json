@@ -14,6 +14,11 @@
       "name": "com.amazonaws.useLocal",
       "type": "java.lang.String",
       "description": "Description for com.amazonaws.useLocal."
+    },
+    {
+      "name": "java.awt.headless",
+      "type": "java.lang.String",
+      "description": "Description for java.awt.headless."
     }
   ]
 }

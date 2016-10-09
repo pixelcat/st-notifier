@@ -1,5 +1,6 @@
 package org.menagerie.stnotifier;
 
+import org.menagerie.stnotifier.console.RenderTarget;
 import org.menagerie.stnotifier.console.SwingRenderTarget;
 import org.menagerie.stnotifier.renderer.SwingMessageRenderer;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -20,10 +21,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableMongoRepositories
 @EnableMongoAuditing
 @EnableScheduling
-@ComponentScan(basePackages = {"org.menagerie.stnotifier.controller", "org.menagerie.stnotifier.tasks"})
+@ComponentScan(basePackages = {"org.menagerie.stnotifier.controller", "org.menagerie.stnotifier.tasks", "org.menagerie.stnotifier.repository"})
 public class STNotifierApplication
 {
-    @Bean(initMethod = "init") SwingRenderTarget swingRenderTarget()
+    @Bean(initMethod = "init") RenderTarget swingRenderTarget()
     {
         return new SwingRenderTarget();
     }

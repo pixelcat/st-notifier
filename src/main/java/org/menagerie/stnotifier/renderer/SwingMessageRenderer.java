@@ -1,6 +1,6 @@
 package org.menagerie.stnotifier.renderer;
 
-import org.menagerie.stnotifier.console.SwingRenderTarget;
+import org.menagerie.stnotifier.console.RenderTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static java.lang.Thread.sleep;
@@ -11,8 +11,7 @@ import static java.lang.Thread.sleep;
  */
 public class SwingMessageRenderer implements MessageRenderer
 {
-    @Autowired
-    SwingRenderTarget cursesRenderTarget;
+    private RenderTarget renderTarget;
 
     @Override public void render(String message) throws InterruptedException
     {
@@ -22,10 +21,16 @@ public class SwingMessageRenderer implements MessageRenderer
                 sleep(650);
                 continue;
             }
-            cursesRenderTarget.setOn(c);
+            renderTarget.setOn(c);
             sleep(600);
-            cursesRenderTarget.setOff(c);
+            renderTarget.setOff(c);
             sleep(50);
         }
+    }
+
+    @Autowired
+    public void setRenderTarget(RenderTarget renderTarget)
+    {
+        this.renderTarget = renderTarget;
     }
 }

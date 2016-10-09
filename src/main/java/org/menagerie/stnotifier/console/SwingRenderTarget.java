@@ -19,8 +19,7 @@ import java.util.Map;
 @Component
 public class SwingRenderTarget implements RenderTarget
 {
-    private Map<Character, Label> targets = new HashMap<>();
-    private Screen screen;
+    private final Map<Character, Label> targets = new HashMap<>();
     private MultiWindowTextGUI gui;
 
     public void init() throws IOException, InterruptedException
@@ -31,7 +30,7 @@ public class SwingRenderTarget implements RenderTarget
         terminal.setVisible(true);
         terminal.clearScreen();
 
-        screen = new TerminalScreen(terminal);
+        Screen screen = new TerminalScreen(terminal);
         screen.startScreen();
 
         Panel panel = new Panel();

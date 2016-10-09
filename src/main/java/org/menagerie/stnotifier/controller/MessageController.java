@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MessageController
 {
-    private static Logger log = LoggerFactory.getLogger(MessageController.class);
+    private static final Logger log = LoggerFactory.getLogger(MessageController.class);
 
     private STMessageRepository stMessageRepository;
 
@@ -81,7 +81,7 @@ public class MessageController
     }
 
     @Autowired
-    public void setStMessageRepository(@SuppressWarnings("SpringJavaAutowiringInspection") STMessageRepository stMessageRepository)
+    public void setStMessageRepository(STMessageRepository stMessageRepository)
     {
         this.stMessageRepository = stMessageRepository;
     }

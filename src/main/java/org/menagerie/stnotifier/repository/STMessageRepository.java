@@ -3,7 +3,6 @@ package org.menagerie.stnotifier.repository;
 import org.bson.types.ObjectId;
 import org.menagerie.stnotifier.model.STMessage;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 /**

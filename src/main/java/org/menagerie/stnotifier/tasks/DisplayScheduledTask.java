@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DisplayScheduledTask
 {
-    private static Logger log = LoggerFactory.getLogger(DisplayScheduledTask.class);
+    private static final Logger log = LoggerFactory.getLogger(DisplayScheduledTask.class);
 
 
     private STMessageRepository stMessageRepository;
