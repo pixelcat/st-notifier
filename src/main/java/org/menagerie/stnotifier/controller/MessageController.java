@@ -2,10 +2,12 @@ package org.menagerie.stnotifier.controller;
 
 import org.joda.time.DateTime;
 import org.menagerie.stnotifier.model.STMessage;
+import org.menagerie.stnotifier.model.TwilioResponse;
 import org.menagerie.stnotifier.repository.STMessageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +27,9 @@ public class MessageController
 
     private STMessageRepository stMessageRepository;
 
-    @RequestMapping(path = "/message", method = RequestMethod.POST)
+    @RequestMapping(path = "/message", method = RequestMethod.POST, produces = { MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
-    public STMessage receiveMessage(
+    public TwilioResponse receiveMessage(
             @RequestParam("AccountSid") String accountSid,
             @RequestParam("ApiVersion") String apiVersion,
             @RequestParam(value = "Body") String body,
@@ -77,7 +79,7 @@ public class MessageController
 
         stMessageRepository.insert(message);
 
-        return message;
+        return new TwilioResponse("Your message from the Upside Down has been received.");
     }
 
     @Autowired

@@ -14,11 +14,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.menagerie.stnotifier.controller.MessageController;
 import org.menagerie.stnotifier.model.STMessage;
+import org.menagerie.stnotifier.model.TwilioResponse;
 import org.menagerie.stnotifier.repository.STMessageRepository;
 
 import java.util.Locale;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -103,9 +105,10 @@ public class MessageControllerTest
             }
         });
 
-        STMessage message = controller.receiveMessage(accountSid, apiVersion, body, from, fromCity, fromCountry, fromState, fromZip, messageSid, messagingServiceSid, numMedia, numSegments, smsMessageSid, smsSid, smsStatus, to, toCity, toState, toZip);
+        TwilioResponse message = controller.receiveMessage(accountSid, apiVersion, body, from, fromCity, fromCountry, fromState, fromZip, messageSid, messagingServiceSid, numMedia, numSegments, smsMessageSid, smsSid, smsStatus, to, toCity, toState, toZip);
         assertNotNull(message);
 
+        assertNotNull(message.message);
         mockery.assertIsSatisfied();
     }
 
