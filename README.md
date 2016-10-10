@@ -39,6 +39,22 @@ worth sharing!
 Without the hardware though, you're pretty much relegated to receiving text messages and displaying them on a virtual 
 terminal (which is kinda neat itself). 
 
+
+## How to Run It
+
+* Clone the github project.
+* Run the following:
+
+```
+mvn spring-boot:run
+```
+
+* To test the endpoint:
+
+POST to http://localhost:8080/message
+
+Provide all key value pairs, but the big one  you need to worry about is "Body" which is the message to display.
+
 ## What about the hardware?
 
 Okay, so you want to build your own wall to receive messages from the Upside Down?
@@ -60,3 +76,4 @@ Okay, so you want to build your own wall to receive messages from the Upside Dow
 * Some wallpaper to put on the wall
 * Strands of Christmas lights (be prepared to GUT at least one strand)
 * A drill (and 1/4" drill bit)
+
