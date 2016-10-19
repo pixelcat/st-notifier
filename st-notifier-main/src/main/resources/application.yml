@@ -1,0 +1,21 @@
+java:
+  awt:
+    headless: false
+logging:
+  level:
+    org.springframework.data.mongodb: DEBUG
+    org.menagerie.stnotifier: DEBUG
+menagerie:
+  stnotifier:
+    wait:
+      start: 5000
+      end: 5000
+      space: 650
+    onTime: 600
+    offTime: 50
+spring:
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: stnotifier

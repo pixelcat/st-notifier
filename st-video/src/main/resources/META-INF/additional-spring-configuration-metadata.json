@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "com.google.client.id",
+      "type": "java.lang.String",
+      "description": "Description for com.google.client.id."
+    },
+    {
+      "name": "com.google.client.secret",
+      "type": "java.lang.String",
+      "description": "Description for com.google.client.secret."
+    }
+  ]
+}

@@ -1,7 +1,0 @@
-java:
-  awt:
-    headless: false
-logging:
-  level:
-    org.springframework.data.mongodb: DEBUG
-    org.menagerie.stnotifier: DEBUG

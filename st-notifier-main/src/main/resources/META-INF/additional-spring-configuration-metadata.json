@@ -1,0 +1,49 @@
+{
+  "properties": [
+    {
+      "name": "com.amazonaws.accessKey",
+      "type": "java.lang.String",
+      "description": "Description for com.amazonaws.accessKey."
+    },
+    {
+      "name": "com.amazonaws.secretKey",
+      "type": "java.lang.String",
+      "description": "Description for com.amazonaws.secretKey."
+    },
+    {
+      "name": "com.amazonaws.useLocal",
+      "type": "java.lang.String",
+      "description": "Description for com.amazonaws.useLocal."
+    },
+    {
+      "name": "java.awt.headless",
+      "type": "java.lang.String",
+      "description": "Description for java.awt.headless."
+    },
+    {
+      "name": "menagerie.stnotifier.wait.start",
+      "type": "java.lang.String",
+      "description": "Description for menagerie.stnotifier.wait.start."
+    },
+    {
+      "name": "menagerie.stnotifier.wait.end",
+      "type": "java.lang.String",
+      "description": "Description for menagerie.stnotifier.wait.end."
+    },
+    {
+      "name": "menagerie.stnotifier.onTime",
+      "type": "java.lang.String",
+      "description": "Description for menagerie.stnotifier.onTime."
+    },
+    {
+      "name": "menagerie.stnotifier.offTime",
+      "type": "java.lang.String",
+      "description": "Description for menagerie.stnotifier.offTime."
+    },
+    {
+      "name": "menagerie.stnotifier.wait.space",
+      "type": "java.lang.String",
+      "description": "Description for menagerie.stnotifier.wait.space."
+    }
+  ]
+}

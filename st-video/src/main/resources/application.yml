@@ -1,0 +1,15 @@
+logging.level:
+  org.menagerie.stnotifier: 'DEBUG'
+  org.apache.http.wire: 'WARN'
+  httpclient.wire.header: 'WARN'
+  httpclient.wire.content: 'WARN'
+  org.apache: 'WARN'
+  org.apache.commons.httpclient: 'WARN'
+server:
+  port: 8084
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: stnotifier
