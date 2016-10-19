@@ -5,6 +5,10 @@ logging.level:
   httpclient.wire.content: 'WARN'
   org.apache: 'WARN'
   org.apache.commons.httpclient: 'WARN'
+twilio:
+  account:
+    sid: ACcfac9b8e682bc0574fdf46d2abc5997b
+    authToken: 065cc25e253e8ba0efb358afdddae73b
 server:
   port: 8084
 spring:

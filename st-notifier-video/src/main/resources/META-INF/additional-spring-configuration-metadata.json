@@ -9,6 +9,16 @@
       "name": "com.google.client.secret",
       "type": "java.lang.String",
       "description": "Description for com.google.client.secret."
+    },
+    {
+      "name": "twilio.account.sid",
+      "type": "java.lang.String",
+      "description": "Description for twilio.account.sid."
+    },
+    {
+      "name": "twilio.account.authToken",
+      "type": "java.lang.String",
+      "description": "Description for twilio.account.authToken."
     }
   ]
 }
