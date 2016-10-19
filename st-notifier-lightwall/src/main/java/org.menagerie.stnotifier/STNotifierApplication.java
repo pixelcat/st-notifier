@@ -29,6 +29,11 @@ import javax.annotation.PostConstruct;
 @ComponentScan(basePackages = {"org.menagerie.stnotifier.controller", "org.menagerie.stnotifier.tasks", "org.menagerie.stnotifier.repository", "org.menagerie.stnotifier.renderer"})
 public class STNotifierApplication
 {
+    public static void main(String[] args) throws Exception
+    {
+        new SpringApplicationBuilder(STNotifierApplication.class).headless(false).run(args);
+    }
+
     @Bean
     private ServerLocationNotifier serverLocationNotifier()
     {
@@ -49,10 +54,5 @@ public class STNotifierApplication
     public void onStartup()
     {
         serverLocationNotifier().notifyServerOfIp();
-    }
-
-    public static void main(String[] args) throws Exception
-    {
-        new SpringApplicationBuilder(STNotifierApplication.class).headless(false).run(args);
     }
 }

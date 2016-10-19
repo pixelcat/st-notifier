@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.menagerie</groupId>
         <artifactId>st-notifier</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>st-notifier-video</artifactId>
@@ -87,34 +88,8 @@
         </dependency>
         <dependency>
             <groupId>org.menagerie</groupId>
-            <artifactId>st-notifier</artifactId>
+            <artifactId>st-notifier-model</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.menagerie</groupId>
-            <artifactId>st-binding</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.menagerie</groupId>
-            <artifactId>st-model</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream</artifactId>
-            <version>1.0.3.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-redis</artifactId>
-            <version>1.0.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>1.4.1.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.google.oauth-client</groupId>
@@ -122,26 +97,14 @@
             <version>1.20.0</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>1.4.1.RELEASE</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>com.twilio.sdk</groupId>
             <artifactId>twilio</artifactId>
             <version>7.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.menagerie</groupId>
+            <artifactId>st-notifier-binding</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>baka</id>
-            <name>baka.sk</name>
-            <url>http://www.baka.sk/maven2</url>
-        </repository>
-        <repository>
-            <id>google-api-services</id>
-            <url>http://google-api-client-libraries.appspot.com/mavenrepo</url>
-        </repository>
-    </repositories>
 </project>

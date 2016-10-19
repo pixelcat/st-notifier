@@ -1,6 +1,6 @@
 package org.menagerie.stnotifier.test;
 
-import com.github.javafaker.Faker;
+import io.codearte.jfairy.Fairy;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
@@ -35,7 +35,8 @@ public class DisplayScheduledTaskTest
         STMessageRepository stMessageRepository = mockery.mock(STMessageRepository.class);
 
         STMessage testMessage = new STMessage();
-        testMessage.setBody(new Faker().lorem().sentence(3));
+        Fairy fairy = Fairy.create();
+        testMessage.setBody(fairy.textProducer().sentence(3));
 
         mockery.checking(new Expectations()
         {

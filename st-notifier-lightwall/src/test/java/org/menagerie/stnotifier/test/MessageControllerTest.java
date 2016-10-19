@@ -20,7 +20,6 @@ import org.menagerie.stnotifier.repository.STMessageRepository;
 import java.util.Locale;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**

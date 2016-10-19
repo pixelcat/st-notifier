@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Copyright 2016 - Aaron Stewart
  * Date: 10/9/16, 8:41 PM
  */
-@XmlRootElement(name = "Response")
+@SuppressWarnings("ALL") @XmlRootElement(name = "Response")
 public class TwilioResponse
 {
     @XmlElement(name = "Message", required = true)

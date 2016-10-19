@@ -35,7 +35,7 @@ public class MessageRendererImpl implements MessageRenderer
     @Value("${menagerie.stnotifier.wait.space}")
     private int waitSpace = 0;
 
-    @Autowired
+    @SuppressWarnings({"SpringJavaAutowiringInspection", "SpringAutowiredFieldsWarningInspection"}) @Autowired
     private Processor processor;
 
 
