@@ -30,7 +30,7 @@ Well, quite a few people:
 
 ## What can you do with it?
 
-Well, with a little hardware knowhow you can build your own stranger things wall, and send it messages, startle your 
+Well, with a little hardware know-how you can build your own stranger things wall, and send it messages, startle your 
 friends, excite your enemies.
 
 Seriously though, it might just be a gimmicky thing, but we figured there are enough fans out there that it was 
@@ -53,7 +53,7 @@ mvn spring-boot:run
 
 POST to http://localhost:8080/message
 
-Provide all key value pairs, but the big one  you need to worry about is "Body" which is the message to display.
+Provide all key value pairs, but the big one you need to worry about is "Body" which is the message to display.
 
 ## What about the hardware?
 
@@ -77,3 +77,19 @@ Okay, so you want to build your own wall to receive messages from the Upside Dow
 * Strands of Christmas lights (be prepared to GUT at least one strand)
 * A drill (and 1/4" drill bit)
 
+## The Geeky Stuff
+
+### Technologies Used
+
+* Linux (we use Ubuntu, the software stack was initially developed on OSX, so it's portable)
+* Java (also portable)
+* Spring Boot (http://projects.spring.io/spring-boot/) as the baseline application stack                
+* Spring Cloud Stream (https://cloud.spring.io/spring-cloud-stream/)
+* Redis (http://redis.io/) as a message bus to communicate between the message printer and the video capture/uploader
+* Google API Client and YouTube Data API for video upload 
+* OAuth2 to authenticate to Google/YouTube
+* Spring Webmvc (for the Oauth2 callback)
+* Apache Maven (as a build tool)
+* GPhoto2 (http://www.gphoto.org/) for video capture
+* Initially tested using a Nikon D810 with a USB connection. This will work with any camera that is supported by GPhoto, though command line may need to be adjusted)
+* Twilio TwiML libraries to send and receive text messages.
