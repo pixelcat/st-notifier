@@ -78,9 +78,4 @@ public class OAuth2Adapter
         // Authorize.
         return new AuthorizationCodeInstalledApp(flow, pluggableVerificationCodeReceiver).authorize("user");
     }
-
-    public void close() throws IOException
-    {
-
-    }
 }

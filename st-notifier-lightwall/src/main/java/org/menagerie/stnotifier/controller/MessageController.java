@@ -32,8 +32,8 @@ public class MessageController
     public TwilioResponse receiveMessage(
             @RequestParam("AccountSid") String accountSid,
             @RequestParam("ApiVersion") String apiVersion,
-            @RequestParam(value = "Body") String body,
-            @RequestParam(value = "From") String from,
+            @RequestParam("Body") String body,
+            @RequestParam("From") String from,
             @RequestParam(value = "FromCity", required = false) String fromCity,
             @RequestParam(value = "FromCountry", required = false) String fromCountry,
             @RequestParam(value = "FromState", required = false) String fromState,
@@ -45,7 +45,7 @@ public class MessageController
             @RequestParam(value = "SmsMessageSid") String smsMessageSid,
             @RequestParam(value = "SmsSid", required = false) String smsSid,
             @RequestParam(value = "SmsStatus", required = false) String smsStatus,
-            @RequestParam(value = "To") String to,
+            @RequestParam("To") String to,
             @RequestParam(value = "ToCity", required = false) String toCity,
             @RequestParam(value = "ToState", required = false) String toState,
             @RequestParam(value = "ToZip", required = false) String toZip)

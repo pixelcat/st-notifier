@@ -1,13 +1,16 @@
 package org.menagerie.stnotifier.video;
 
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.apache.ApacheHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import org.menagerie.stnotifier.video.controller.PluggableVerificationCodeReceiver;
 import org.menagerie.stnotifier.video.controller.PluggableVerificationCodeReceiverImpl;
 import org.menagerie.stnotifier.video.gphoto2.Gphoto2CLI;
 import org.menagerie.stnotifier.video.gphoto2.Gphoto2CLIImpl;
 import org.menagerie.stnotifier.video.messaging.twilio.TwilioMessageSender;
 import org.menagerie.stnotifier.video.messaging.twilio.TwilioMessageSenderImpl;
-import org.menagerie.stnotifier.video.youtube.OAuth2Adapter;
-import org.menagerie.stnotifier.video.youtube.YoutubeUploader;
+import org.menagerie.stnotifier.video.youtube.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -28,7 +31,11 @@ public class STVideoApplication
     @Bean
     YoutubeUploader youtubeUploader()
     {
-        return new YoutubeUploader();
+        return new YoutubeUploaderImpl();
+    }
+
+    @Bean SpringYoutubeFacade springYoutubeFacade() {
+        return new SpringYoutubeFacadeImpl();
     }
 
     @Bean
@@ -51,6 +58,16 @@ public class STVideoApplication
     @Bean Gphoto2CLI gphoto2CLI()
     {
         return new Gphoto2CLIImpl();
+    }
+
+    @Bean
+    HttpTransport httpTransport() {
+        return new ApacheHttpTransport();
+    }
+
+    @Bean
+    JsonFactory jsonFactory() {
+      return new JacksonFactory();
     }
 
     public static void main(String[] args)
