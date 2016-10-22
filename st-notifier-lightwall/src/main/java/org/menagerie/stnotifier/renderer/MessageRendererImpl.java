@@ -38,6 +38,8 @@ public class MessageRendererImpl implements MessageRenderer
     @SuppressWarnings({"SpringJavaAutowiringInspection", "SpringAutowiredFieldsWarningInspection"}) @Autowired
     private Processor processor;
 
+    @Autowired
+    private Sleeper sleeper;
 
     @Override public void render(STMessage messageSource) throws InterruptedException
     {
@@ -51,20 +53,20 @@ public class MessageRendererImpl implements MessageRenderer
         String message = messageSource.getBody().replaceAll("[^a-zA-Z ]", "");
 
         if (waitStart > 0) {
-            sleep(waitStart);
+            sleeper.doSleep(waitStart);
         }
         for (char c : message.toCharArray()) {
             if (c == ' ') {
-                sleep(waitSpace);
+                sleeper.doSleep(waitSpace);
                 continue;
             }
             renderTarget.setOn(c);
-            sleep(onTime);
+            sleeper.doSleep(onTime);
             renderTarget.setOff(c);
-            sleep(offTime);
+            sleeper.doSleep(offTime);
         }
         if (waitEnd > 0) {
-            sleep(waitEnd);
+            sleeper.doSleep(waitEnd);
         }
     }
 
@@ -89,5 +91,40 @@ public class MessageRendererImpl implements MessageRenderer
             duration += offTime;
         }
         return duration;
+    }
+
+    public void setOnTime(int onTime)
+    {
+        this.onTime = onTime;
+    }
+
+    public void setOffTime(int offTime)
+    {
+        this.offTime = offTime;
+    }
+
+    public void setWaitStart(int waitStart)
+    {
+        this.waitStart = waitStart;
+    }
+
+    public void setWaitEnd(int waitEnd)
+    {
+        this.waitEnd = waitEnd;
+    }
+
+    public void setWaitSpace(int waitSpace)
+    {
+        this.waitSpace = waitSpace;
+    }
+
+    public void setProcessor(Processor processor)
+    {
+        this.processor = processor;
+    }
+
+    public void setSleeper(Sleeper sleeper)
+    {
+        this.sleeper = sleeper;
     }
 }

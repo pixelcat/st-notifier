@@ -47,7 +47,7 @@ public class DisplayScheduledTaskTest
                 one(testMessageRenderer).render(testMessage);
                 will(returnValue(null));
 
-                one(stMessageRepository).save(with(testMessage));
+                one(stMessageRepository).save(testMessage);
                 will(returnValue(testMessage));
             }
         });

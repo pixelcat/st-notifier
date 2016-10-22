@@ -10,5 +10,5 @@ public interface RenderTarget
 {
     void setOn(Character target);
     void setOff(Character target);
-    void init() throws IOException, InterruptedException;
+    void init();
 }

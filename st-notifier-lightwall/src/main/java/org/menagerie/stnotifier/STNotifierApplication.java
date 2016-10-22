@@ -2,8 +2,12 @@ package org.menagerie.stnotifier;
 
 import org.menagerie.stnotifier.console.RenderTarget;
 import org.menagerie.stnotifier.console.SwingRenderTarget;
+import org.menagerie.stnotifier.console.SwingTerminalBean;
+import org.menagerie.stnotifier.console.SwingTerminalBeanImpl;
 import org.menagerie.stnotifier.renderer.MessageRenderer;
 import org.menagerie.stnotifier.renderer.MessageRendererImpl;
+import org.menagerie.stnotifier.renderer.Sleeper;
+import org.menagerie.stnotifier.renderer.SleeperImpl;
 import org.menagerie.stnotifier.support.ServerLocationNotifier;
 import org.menagerie.stnotifier.support.ServerLocationNotifierImpl;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -48,6 +52,15 @@ public class STNotifierApplication
     @Bean MessageRenderer messageRenderer()
     {
         return new MessageRendererImpl();
+    }
+
+    @Bean SwingTerminalBean swingTerminalBean() {
+        return new SwingTerminalBeanImpl();
+    }
+
+    @Bean
+    Sleeper sleeper() {
+        return new SleeperImpl();
     }
 
     @PostConstruct

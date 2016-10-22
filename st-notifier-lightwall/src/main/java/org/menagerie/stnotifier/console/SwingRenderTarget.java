@@ -1,11 +1,10 @@
 package org.menagerie.stnotifier.console;
 
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.swing.SwingTerminalFrame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -19,44 +18,55 @@ import java.util.Map;
 @Component
 public class SwingRenderTarget implements RenderTarget
 {
+    private static Logger log = LoggerFactory.getLogger(SwingRenderTarget.class);
+
     private final Map<Character, Label> targets = new HashMap<>();
+
+    @Autowired
+    private SwingTerminalBean swingTerminalBean;
+
     private MultiWindowTextGUI gui;
 
-    public void init() throws IOException, InterruptedException
+    private boolean initialized = false;
+
+    public void init()
     {
-        SwingTerminalFrame terminal = new DefaultTerminalFactory().createSwingTerminal();
-        terminal.setTitle("Stranger Things Notifier Demo");
-        terminal.setSize(800, 600);
-        terminal.setVisible(true);
-        terminal.clearScreen();
+        if (!initialized) {
+            try {
+                String title = "Stranger Things Notifier Demo";
+                Screen screen = swingTerminalBean.create(title);
 
-        Screen screen = new TerminalScreen(terminal);
-        screen.startScreen();
+                Panel panel = new Panel();
+                panel.setLayoutManager(new GridLayout(10));
 
-        Panel panel = new Panel();
-        panel.setLayoutManager(new GridLayout(10));
+                String sequence = "abcdefghijklmnopqrstuvwxyz";
+                char[] chars = sequence.toCharArray();
+                for (char c : chars) {
+                    Panel subpanel = new Panel();
+                    subpanel.addComponent(new Label(Character.toString(c)));
+                    subpanel.setLayoutManager(new GridLayout(1));
+                    targets.put(c, new Label(""));
 
-        String sequence = "abcdefghijklmnopqrstuvwxyz";
-        char[] chars = sequence.toCharArray();
-        for (char c : chars) {
-            Panel subpanel = new Panel();
-            subpanel.addComponent(new Label(Character.toString(c)));
-            subpanel.setLayoutManager(new GridLayout(1));
-            targets.put(c, new Label(""));
+                    subpanel.addComponent(targets.get(c));
+                    panel.addComponent(subpanel);
+                }
+                BasicWindow window = new BasicWindow();
+                window.setComponent(panel);
+                gui = swingTerminalBean.createGui(screen);
 
-            subpanel.addComponent(targets.get(c));
-            panel.addComponent(subpanel);
+                new Thread(() -> gui.addWindowAndWait(window)).start();
+
+                Thread.sleep(2000);
+            } catch (InterruptedException | IOException e) {
+                log.error("Initialization of dummy terminal failed.", e);
+            }
+            initialized = true;
         }
-        BasicWindow window = new BasicWindow();
-        window.setComponent(panel);
-        gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
-
-        new Thread(() -> gui.addWindowAndWait(window)).start();
-        Thread.sleep(2000);
     }
 
     @Override public void setOn(Character target)
     {
+        init();
         Label label = targets.get(Character.toLowerCase(target));
         label.setText("*");
         try {
@@ -69,6 +79,7 @@ public class SwingRenderTarget implements RenderTarget
 
     @Override public void setOff(Character target)
     {
+        init();
         Label label = targets.get(Character.toLowerCase(target));
         label.setText("");
         try {
@@ -76,5 +87,10 @@ public class SwingRenderTarget implements RenderTarget
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setSwingTerminalBean(SwingTerminalBean swingTerminalBean)
+    {
+        this.swingTerminalBean = swingTerminalBean;
     }
 }
