@@ -47,7 +47,7 @@
         </dependency>
         <dependency>
             <groupId>org.menagerie</groupId>
-            <artifactId>st-binding</artifactId>
+            <artifactId>st-notifier-binding</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
