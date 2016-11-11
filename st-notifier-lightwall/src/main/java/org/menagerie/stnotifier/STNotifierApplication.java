@@ -8,8 +8,6 @@ import org.menagerie.stnotifier.renderer.MessageRenderer;
 import org.menagerie.stnotifier.renderer.MessageRendererImpl;
 import org.menagerie.stnotifier.renderer.Sleeper;
 import org.menagerie.stnotifier.renderer.SleeperImpl;
-import org.menagerie.stnotifier.support.ServerLocationNotifier;
-import org.menagerie.stnotifier.support.ServerLocationNotifierImpl;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
@@ -18,8 +16,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
-import javax.annotation.PostConstruct;
 
 /**
  * Copyright 2016 - Aaron Stewart
@@ -36,12 +32,6 @@ public class STNotifierApplication
     public static void main(String[] args) throws Exception
     {
         new SpringApplicationBuilder(STNotifierApplication.class).headless(false).run(args);
-    }
-
-    @Bean
-    private ServerLocationNotifier serverLocationNotifier()
-    {
-        return new ServerLocationNotifierImpl();
     }
 
     @Bean(initMethod = "init") RenderTarget swingRenderTarget()
@@ -61,11 +51,5 @@ public class STNotifierApplication
     @Bean
     Sleeper sleeper() {
         return new SleeperImpl();
-    }
-
-    @PostConstruct
-    public void onStartup()
-    {
-        serverLocationNotifier().notifyServerOfIp();
     }
 }
