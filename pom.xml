@@ -130,6 +130,18 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
+        <repository>
+            <url>http://nexus.dployr.com/repository/maven-releases/</url>
+            <id>nexus.dployr.com-releases</id>
+            <snapshots><enabled>false</enabled></snapshots>
+            <releases><enabled>true</enabled></releases>
+        </repository>
+        <repository>
+            <url>http://nexus.dployr.com/repository/maven-snapshots/</url>
+            <id>nexus.dployr.com-snapshots</id>
+            <snapshots><enabled>true</enabled></snapshots>
+            <releases><enabled>false</enabled></releases>
+        </repository>
         <!--<repository>-->
             <!--<id>google-api-services</id>-->
             <!--<url>http://google-api-client-libraries.appspot.com/mavenrepo</url>-->
