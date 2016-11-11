@@ -33,7 +33,7 @@
     <dependencies>
         <dependency>
             <groupId>org.menagerie</groupId>
-            <artifactId>st-model</artifactId>
+            <artifactId>st-notifier-model</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
