@@ -26,7 +26,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableMongoRepositories
 @EnableMongoAuditing
 @EnableScheduling
-@ComponentScan(basePackages = {"org.menagerie.stnotifier.controller", "org.menagerie.stnotifier.tasks", "org.menagerie.stnotifier.repository", "org.menagerie.stnotifier.renderer"})
+@ComponentScan(basePackages = {
+        "org.menagerie.stnotifier.controller",
+        "org.menagerie.stnotifier.tasks",
+        "org.menagerie.stnotifier.repository",
+        "org.menagerie.stnotifier.renderer"
+})
 public class STNotifierApplication
 {
     public static void main(String[] args) throws Exception
@@ -44,12 +49,14 @@ public class STNotifierApplication
         return new MessageRendererImpl();
     }
 
-    @Bean SwingTerminalBean swingTerminalBean() {
+    @Bean SwingTerminalBean swingTerminalBean()
+    {
         return new SwingTerminalBeanImpl();
     }
 
     @Bean
-    Sleeper sleeper() {
+    Sleeper sleeper()
+    {
         return new SleeperImpl();
     }
 }
