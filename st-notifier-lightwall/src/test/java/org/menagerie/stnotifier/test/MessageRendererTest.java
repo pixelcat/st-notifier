@@ -25,7 +25,7 @@ import static org.hamcrest.Matchers.equalTo;
  */
 public class MessageRendererTest
 {
-    Mockery mockery;
+    private Mockery mockery;
 
     @Before
     public void setUp()

@@ -18,11 +18,10 @@ import java.util.Map;
 @Component
 public class SwingRenderTarget implements RenderTarget
 {
-    private static Logger log = LoggerFactory.getLogger(SwingRenderTarget.class);
+    private static final Logger log = LoggerFactory.getLogger(SwingRenderTarget.class);
 
     private final Map<Character, Label> targets = new HashMap<>();
 
-    @Autowired
     private SwingTerminalBean swingTerminalBean;
 
     private MultiWindowTextGUI gui;
@@ -89,6 +88,7 @@ public class SwingRenderTarget implements RenderTarget
         }
     }
 
+    @Autowired
     public void setSwingTerminalBean(SwingTerminalBean swingTerminalBean)
     {
         this.swingTerminalBean = swingTerminalBean;

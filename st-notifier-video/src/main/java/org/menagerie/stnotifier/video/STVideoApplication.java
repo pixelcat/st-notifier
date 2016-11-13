@@ -28,6 +28,11 @@ public class STVideoApplication
 {
     private static Logger log = LoggerFactory.getLogger(STVideoApplication.class);
 
+    public static void main(String[] args)
+    {
+        SpringApplication.run(STVideoApplication.class, args);
+    }
+
     @Bean
     YoutubeUploader youtubeUploader()
     {
@@ -51,7 +56,8 @@ public class STVideoApplication
     }
 
     @Bean
-    TwilioMessageSender twilioMesssageSender() {
+    TwilioMessageSender twilioMessageSender()
+    {
         return new TwilioMessageSenderImpl();
     }
 
@@ -68,10 +74,5 @@ public class STVideoApplication
     @Bean
     JsonFactory jsonFactory() {
       return new JacksonFactory();
-    }
-
-    public static void main(String[] args)
-    {
-        SpringApplication.run(STVideoApplication.class, args);
     }
 }

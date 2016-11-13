@@ -16,12 +16,12 @@ import java.io.IOException;
 @Component
 public class YoutubeUploaderImpl implements YoutubeUploader
 {
-    private static Logger log = LoggerFactory.getLogger(YoutubeUploaderImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(YoutubeUploaderImpl.class);
 
     private SpringYoutubeFacade youtubeFacade;
 
     @Autowired
-    public void setYoutubeFacade(SpringYoutubeFacade youtubeFacade)
+    public void setYoutubeFacade(@SuppressWarnings("SpringJavaAutowiringInspection") SpringYoutubeFacade youtubeFacade)
     {
         this.youtubeFacade = youtubeFacade;
     }

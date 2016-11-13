@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
  */
 public class TwilioMessageSenderImpl implements TwilioMessageSender
 {
-    private static Logger log = LoggerFactory.getLogger(TwilioMessageSenderImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(TwilioMessageSenderImpl.class);
     @Value("${twilio.account.sid}")
     private String accountSid;
 

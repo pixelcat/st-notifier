@@ -98,7 +98,7 @@ public class MessageControllerTest
                         hasProperty("toZip", equalTo(toZip))
 
                 );
-                one(mockStMessageRepository).insert(with(matcher));
+                oneOf(mockStMessageRepository).insert(with(matcher));
 
                 will(returnLastActionParam());
             }

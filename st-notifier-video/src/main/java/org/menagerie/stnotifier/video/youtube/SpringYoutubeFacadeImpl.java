@@ -13,6 +13,7 @@ import com.google.api.services.youtube.model.VideoStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,9 +25,10 @@ import java.util.List;
  * Copyright 2016 - Aaron Stewart
  * Date: 10/19/16, 9:53 PM
  */
+@Component
 public class SpringYoutubeFacadeImpl implements SpringYoutubeFacade
 {
-    private static Logger log = LoggerFactory.getLogger(SpringYoutubeFacadeImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(SpringYoutubeFacadeImpl.class);
 
     private OAuth2Adapter oAuth2Adapter;
 

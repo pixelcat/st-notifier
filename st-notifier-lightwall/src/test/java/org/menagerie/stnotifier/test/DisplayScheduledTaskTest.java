@@ -41,13 +41,13 @@ public class DisplayScheduledTaskTest
         mockery.checking(new Expectations()
         {
             {
-                one(stMessageRepository).findFirstByDisplayedOrderByReceivedDateDesc(false);
+                oneOf(stMessageRepository).findFirstByDisplayedOrderByReceivedDateDesc(false);
                 will(returnValue(testMessage));
 
-                one(testMessageRenderer).render(testMessage);
+                oneOf(testMessageRenderer).render(testMessage);
                 will(returnValue(null));
 
-                one(stMessageRepository).save(testMessage);
+                oneOf(stMessageRepository).save(testMessage);
                 will(returnValue(testMessage));
             }
         });

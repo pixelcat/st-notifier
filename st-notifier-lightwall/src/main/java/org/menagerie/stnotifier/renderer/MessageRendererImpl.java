@@ -9,8 +9,6 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.messaging.support.GenericMessage;
 
-import static java.lang.Thread.sleep;
-
 /**
  * Copyright 2016 - Aaron Stewart
  * Date: 10/1/16, 4:50 PM
@@ -38,10 +36,9 @@ public class MessageRendererImpl implements MessageRenderer
     @SuppressWarnings({"SpringJavaAutowiringInspection", "SpringAutowiredFieldsWarningInspection"}) @Autowired
     private Processor processor;
 
-    @Autowired
     private Sleeper sleeper;
 
-    @Override public void render(STMessage messageSource) throws InterruptedException
+    @Override public void render(STMessage messageSource)
     {
         VideoStartMessage startMessage = new VideoStartMessage();
         String body = messageSource.getBody();
@@ -93,6 +90,7 @@ public class MessageRendererImpl implements MessageRenderer
         return duration;
     }
 
+
     public void setOnTime(int onTime)
     {
         this.onTime = onTime;
@@ -123,6 +121,7 @@ public class MessageRendererImpl implements MessageRenderer
         this.processor = processor;
     }
 
+    @Autowired
     public void setSleeper(Sleeper sleeper)
     {
         this.sleeper = sleeper;

@@ -12,7 +12,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStore;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import org.menagerie.stnotifier.video.controller.PluggableVerificationCodeReceiver;
-import org.menagerie.stnotifier.video.controller.PluggableVerificationCodeReceiverImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -27,23 +26,20 @@ import java.util.List;
  */
 public class OAuth2Adapter
 {
-    @Autowired
-    PluggableVerificationCodeReceiver pluggableVerificationCodeReceiver;
-
-    /**
-     * Define a global instance of the HTTP transport.
-     */
-    private HttpTransport httpTransport = new NetHttpTransport();
-
-    /**
-     * Define a global instance of the JSON factory.
-     */
-    private JsonFactory jsonFactory = new JacksonFactory();
-
     /**
      * This is the directory that will be used under the user's home directory where OAuth tokens will be stored.
      */
     private static final String CREDENTIALS_DIRECTORY = ".oauth-credentials";
+    /**
+     * Define a global instance of the HTTP transport.
+     */
+    private final HttpTransport httpTransport = new NetHttpTransport();
+
+    /**
+     * Define a global instance of the JSON factory.
+     */
+    private final JsonFactory jsonFactory = new JacksonFactory();
+    private PluggableVerificationCodeReceiver pluggableVerificationCodeReceiver;
 
     /**
      * Authorizes the installed application to access user's protected data.
@@ -51,6 +47,7 @@ public class OAuth2Adapter
      * @param scopes              list of scopes needed to run youtube upload.
      * @param credentialDatastore name of the credential datastore to cache OAuth tokens
      */
+    @SuppressWarnings("WeakerAccess")
     public Credential authorize(List<String> scopes, String credentialDatastore) throws IOException
     {
 
@@ -77,5 +74,11 @@ public class OAuth2Adapter
 
         // Authorize.
         return new AuthorizationCodeInstalledApp(flow, pluggableVerificationCodeReceiver).authorize("user");
+    }
+
+    @Autowired
+    public void setPluggableVerificationCodeReceiver(PluggableVerificationCodeReceiver pluggableVerificationCodeReceiver)
+    {
+        this.pluggableVerificationCodeReceiver = pluggableVerificationCodeReceiver;
     }
 }

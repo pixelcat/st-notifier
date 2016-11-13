@@ -1,12 +1,7 @@
 package org.menagerie.stnotifier.video.test;
 
-import io.codearte.jfairy.Fairy;
-import org.junit.Before;
 import org.junit.Test;
-import org.menagerie.stnotifier.video.gphoto2.Gphoto2CLI;
-import org.menagerie.stnotifier.video.gphoto2.Gphoto2CLIImpl;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import static org.junit.Assert.assertTrue;
@@ -17,12 +12,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class CameraLoaderTest
 {
-    @Before
-    public void setUp()
-    {
-
-    }
-
     @Test
     public void testCameraList() throws InterruptedException, FileNotFoundException
     {

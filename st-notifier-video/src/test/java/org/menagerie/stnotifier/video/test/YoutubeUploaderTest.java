@@ -5,7 +5,6 @@ import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatistics;
 import com.google.api.services.youtube.model.VideoStatus;
-import io.codearte.jfairy.Fairy;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -28,7 +27,7 @@ import static org.junit.Assert.assertSame;
 @RunWith(SpringRunner.class)
 public class YoutubeUploaderTest
 {
-    Mockery mockery;
+    private Mockery mockery;
 
     @Before
     public void setUp()

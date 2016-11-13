@@ -14,11 +14,11 @@ import java.io.StringWriter;
 @Controller
 public class GoogleOAuth2Controller
 {
-    @Autowired
-    PluggableVerificationCodeReceiver pluggableVerificationCodeReceiver;
+    private PluggableVerificationCodeReceiver pluggableVerificationCodeReceiver;
 
     @RequestMapping("/callback")
-    public String callback(@RequestParam("code") String code, @RequestParam("error") String error) {
+    public String callback(@RequestParam("code") String code, @RequestParam("error") String error)
+    {
         StringWriter doc = new StringWriter();
         doc.write("<html>");
         doc.write("<head><title>OAuth 2.0 Authentication Token Received</title></head>");
@@ -31,10 +31,15 @@ public class GoogleOAuth2Controller
         try {
             pluggableVerificationCodeReceiver.setCode(code);
             pluggableVerificationCodeReceiver.setError(error);
-        }
-        finally {
+        } finally {
             pluggableVerificationCodeReceiver.getLock().unlock();
         }
         return doc.toString();
+    }
+
+    @Autowired
+    public void setPluggableVerificationCodeReceiver(PluggableVerificationCodeReceiver pluggableVerificationCodeReceiver)
+    {
+        this.pluggableVerificationCodeReceiver = pluggableVerificationCodeReceiver;
     }
 }

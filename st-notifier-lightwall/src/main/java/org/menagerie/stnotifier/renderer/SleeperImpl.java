@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SleeperImpl implements Sleeper
 {
-    private static Logger log = LoggerFactory.getLogger(SleeperImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(SleeperImpl.class);
     @Override public void doSleep(int millis)
     {
         try {

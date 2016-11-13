@@ -8,5 +8,5 @@ import org.menagerie.stnotifier.model.STMessage;
  */
 public interface MessageRenderer
 {
-    void render(STMessage messageSource) throws InterruptedException;
+    void render(STMessage messageSource);
 }

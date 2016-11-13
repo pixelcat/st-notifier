@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 
 /**
  * Copyright 2016 - Aaron Stewart
@@ -14,7 +13,8 @@ import java.io.OutputStream;
  */
 public class Gphoto2CLIImpl implements Gphoto2CLI
 {
-    private static Logger log = LoggerFactory.getLogger(Gphoto2CLIImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(Gphoto2CLIImpl.class);
+
     @Override public void captureMovie(long time, String filePath)
     {
         String gphotoPath;
@@ -43,7 +43,7 @@ public class Gphoto2CLIImpl implements Gphoto2CLI
         StringBuilder sb = new StringBuilder();
 
         String line;
-        while((line = b.readLine()) != null) {
+        while ((line = b.readLine()) != null) {
             sb.append(line).append("\n");
         }
         return sb.toString();

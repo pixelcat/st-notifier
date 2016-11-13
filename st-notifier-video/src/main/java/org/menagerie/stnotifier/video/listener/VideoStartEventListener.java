@@ -28,15 +28,12 @@ import java.util.Calendar;
 @EnableBinding(Processor.class)
 public class VideoStartEventListener
 {
-    private static Logger log = LoggerFactory.getLogger(VideoStartEventListener.class);
+    private static final Logger log = LoggerFactory.getLogger(VideoStartEventListener.class);
 
-    @Autowired
     private Gphoto2CLI gphoto2CLI;
 
-    @Autowired
     private YoutubeUploader youtubeUploader;
 
-    @Autowired
     private TwilioMessageSender twilioMessageSender;
 
     @StreamListener(value = Processor.INPUT)
@@ -65,5 +62,23 @@ public class VideoStartEventListener
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Autowired
+    public void setGphoto2CLI(Gphoto2CLI gphoto2CLI)
+    {
+        this.gphoto2CLI = gphoto2CLI;
+    }
+
+    @Autowired
+    public void setYoutubeUploader(YoutubeUploader youtubeUploader)
+    {
+        this.youtubeUploader = youtubeUploader;
+    }
+
+    @Autowired
+    public void setTwilioMessageSender(TwilioMessageSender twilioMessageSender)
+    {
+        this.twilioMessageSender = twilioMessageSender;
     }
 }

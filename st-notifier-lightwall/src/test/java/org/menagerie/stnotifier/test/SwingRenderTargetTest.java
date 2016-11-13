@@ -23,9 +23,9 @@ import java.io.IOException;
  */
 public class SwingRenderTargetTest
 {
-    private static Logger log = LoggerFactory.getLogger(SwingRenderTargetTest.class);
+    private static final Logger log = LoggerFactory.getLogger(SwingRenderTargetTest.class);
 
-    Mockery mockery;
+    private Mockery mockery;
 
     @Before
     public void setUp() {
