@@ -44,6 +44,11 @@
       "name": "menagerie.stnotifier.wait.space",
       "type": "java.lang.String",
       "description": "Description for menagerie.stnotifier.wait.space."
+    },
+    {
+      "name": "menagerie.stnotifier.wait.betweenMessages",
+      "type": "java.lang.String",
+      "description": "Description for menagerie.stnotifier.wait.betweenMessages."
     }
   ]
 }

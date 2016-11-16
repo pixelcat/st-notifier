@@ -1,10 +1,11 @@
 package org.menagerie.stnotifier.renderer;
 
 import org.menagerie.stnotifier.binding.VideoStartMessage;
+import org.menagerie.stnotifier.config.STNotifierConfig;
 import org.menagerie.stnotifier.console.RenderTarget;
+import org.menagerie.stnotifier.model.STConfig;
 import org.menagerie.stnotifier.model.STMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.messaging.support.GenericMessage;
@@ -18,20 +19,7 @@ public class MessageRendererImpl implements MessageRenderer
 {
     private RenderTarget renderTarget;
 
-    @Value("${menagerie.stnotifier.onTime}")
-    private int onTime = 0;
-
-    @Value("${menagerie.stnotifier.offTime}")
-    private int offTime = 0;
-
-    @Value("${menagerie.stnotifier.wait.start}")
-    private int waitStart = 0;
-
-    @Value("${menagerie.stnotifier.wait.end}")
-    private int waitEnd = 0;
-
-    @Value("${menagerie.stnotifier.wait.space}")
-    private int waitSpace = 0;
+    private STNotifierConfig stNotifierConfig;
 
     @SuppressWarnings({"SpringJavaAutowiringInspection", "SpringAutowiredFieldsWarningInspection"}) @Autowired
     private Processor processor;
@@ -40,30 +28,32 @@ public class MessageRendererImpl implements MessageRenderer
 
     @Override public void render(STMessage messageSource)
     {
+        STConfig config = stNotifierConfig.getConfig();
+
         VideoStartMessage startMessage = new VideoStartMessage();
         String body = messageSource.getBody();
         body = body.replaceAll("[^a-zA-z ]", "");
-        startMessage.setDuration(waitStart + countChars(body) + waitEnd);
+        startMessage.setDuration(config.getWaitStart() + countChars(body) + config.getWaitEnd());
         startMessage.setStMessage(messageSource);
         processor.output().send(new GenericMessage<>(startMessage));
 
         String message = messageSource.getBody().replaceAll("[^a-zA-Z ]", "");
 
-        if (waitStart > 0) {
-            sleeper.doSleep(waitStart);
+        if (config.getWaitStart() > 0) {
+            sleeper.doSleep(config.getWaitStart());
         }
         for (char c : message.toCharArray()) {
             if (c == ' ') {
-                sleeper.doSleep(waitSpace);
+                sleeper.doSleep(config.getWaitSpace());
                 continue;
             }
             renderTarget.setOn(c);
-            sleeper.doSleep(onTime);
+            sleeper.doSleep(config.getOnTime());
             renderTarget.setOff(c);
-            sleeper.doSleep(offTime);
+            sleeper.doSleep(config.getOffTime());
         }
-        if (waitEnd > 0) {
-            sleeper.doSleep(waitEnd);
+        if (config.getWaitEnd() > 0) {
+            sleeper.doSleep(config.getWaitEnd());
         }
     }
 
@@ -75,45 +65,21 @@ public class MessageRendererImpl implements MessageRenderer
 
     private int countChars(String message)
     {
+        STConfig config = stNotifierConfig.getConfig();
+
         int duration = 0;
         char[] charMsg = message.toCharArray();
         for (char c : charMsg) {
             if (c == ' ') {
-                duration += waitSpace;
+                duration += config.getWaitSpace();
             }
             else {
-                duration += onTime;
+                duration += config.getOnTime();
             }
 
-            duration += offTime;
+            duration += config.getOffTime();
         }
         return duration;
-    }
-
-
-    public void setOnTime(int onTime)
-    {
-        this.onTime = onTime;
-    }
-
-    public void setOffTime(int offTime)
-    {
-        this.offTime = offTime;
-    }
-
-    public void setWaitStart(int waitStart)
-    {
-        this.waitStart = waitStart;
-    }
-
-    public void setWaitEnd(int waitEnd)
-    {
-        this.waitEnd = waitEnd;
-    }
-
-    public void setWaitSpace(int waitSpace)
-    {
-        this.waitSpace = waitSpace;
     }
 
     public void setProcessor(Processor processor)
@@ -125,5 +91,11 @@ public class MessageRendererImpl implements MessageRenderer
     public void setSleeper(Sleeper sleeper)
     {
         this.sleeper = sleeper;
+    }
+
+    @Autowired
+    public void setStNotifierConfig(STNotifierConfig stNotifierConfig)
+    {
+        this.stNotifierConfig = stNotifierConfig;
     }
 }

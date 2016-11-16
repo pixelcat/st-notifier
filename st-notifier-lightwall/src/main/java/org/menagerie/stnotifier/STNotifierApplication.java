@@ -1,5 +1,7 @@
 package org.menagerie.stnotifier;
 
+import org.menagerie.stnotifier.config.STNotifierConfig;
+import org.menagerie.stnotifier.config.STNotifierConfigImpl;
 import org.menagerie.stnotifier.console.RenderTarget;
 import org.menagerie.stnotifier.console.SwingRenderTarget;
 import org.menagerie.stnotifier.console.SwingTerminalBean;
@@ -47,6 +49,11 @@ public class STNotifierApplication
     @Bean MessageRenderer messageRenderer()
     {
         return new MessageRendererImpl();
+    }
+
+    @Bean STNotifierConfig stNotifierConfig()
+    {
+        return new STNotifierConfigImpl();
     }
 
     @Bean SwingTerminalBean swingTerminalBean()

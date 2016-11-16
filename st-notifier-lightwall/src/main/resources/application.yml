@@ -5,9 +5,11 @@ logging:
   level:
     org.springframework.data.mongodb: DEBUG
     org.menagerie.stnotifier: DEBUG
+    org.springframework.boot: DEBUG
 menagerie:
   stnotifier:
     wait:
+      betweenMessages: 60000
       start: 5000
       end: 5000
       space: 650

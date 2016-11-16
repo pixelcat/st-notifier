@@ -1,19 +1,21 @@
 package org.menagerie.stnotifier.controller;
 
 import org.joda.time.DateTime;
+import org.menagerie.stnotifier.config.STNotifierConfig;
+import org.menagerie.stnotifier.model.STConfig;
 import org.menagerie.stnotifier.model.STMessage;
 import org.menagerie.stnotifier.model.TwilioResponse;
 import org.menagerie.stnotifier.repository.STMessageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Copyright 2016 - Aaron Stewart
@@ -26,8 +28,25 @@ public class MessageController
     private static final Logger log = LoggerFactory.getLogger(MessageController.class);
 
     private STMessageRepository stMessageRepository;
+    private STNotifierConfig stNotifierConfig;
 
-    @RequestMapping(path = "/message", method = RequestMethod.POST, produces = { MediaType.APPLICATION_XML_VALUE })
+    @RequestMapping(path = "/message/displayed", method = RequestMethod.GET)
+    @ResponseBody
+    public List<STMessage> getRecentlyDisplayedMessages()
+    {
+        PageRequest pageRequest = new PageRequest(0, 30);
+        return stMessageRepository.findByDisplayedOrderByReceivedDateDesc(true, pageRequest);
+    }
+
+    @RequestMapping(path = "/message/upcoming", method = RequestMethod.GET)
+    @ResponseBody
+    public List<STMessage> getUpcomingMessages()
+    {
+        PageRequest pageRequest = new PageRequest(0, 30);
+        return stMessageRepository.findByDisplayedOrderByReceivedDateDesc(false, pageRequest);
+    }
+
+    @RequestMapping(path = "/message", method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public TwilioResponse receiveMessage(
             @RequestParam("AccountSid") String accountSid,
@@ -86,5 +105,24 @@ public class MessageController
     public void setStMessageRepository(STMessageRepository stMessageRepository)
     {
         this.stMessageRepository = stMessageRepository;
+    }
+
+    @Autowired
+    public void setStNotifierConfig(STNotifierConfig stNotifierConfig)
+    {
+        this.stNotifierConfig = stNotifierConfig;
+    }
+
+    @RequestMapping(path = "/config", method = RequestMethod.GET)
+    public STConfig getConfig()
+    {
+        return stNotifierConfig.getConfig();
+    }
+
+
+    @RequestMapping(path = "/config", method = RequestMethod.POST)
+    public STConfig postConfig(@RequestBody STConfig config)
+    {
+        return stNotifierConfig.saveConfig(config);
     }
 }

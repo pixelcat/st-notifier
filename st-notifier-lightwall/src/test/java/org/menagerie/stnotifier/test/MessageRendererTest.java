@@ -8,7 +8,9 @@ import org.jmock.Sequence;
 import org.junit.Before;
 import org.junit.Test;
 import org.menagerie.stnotifier.binding.VideoStartMessage;
+import org.menagerie.stnotifier.config.STNotifierConfig;
 import org.menagerie.stnotifier.console.RenderTarget;
+import org.menagerie.stnotifier.model.STConfig;
 import org.menagerie.stnotifier.model.STMessage;
 import org.menagerie.stnotifier.renderer.MessageRendererImpl;
 import org.menagerie.stnotifier.renderer.Sleeper;
@@ -43,13 +45,26 @@ public class MessageRendererTest
         MessageChannel mockMessageChannel = mockery.mock(MessageChannel.class);
 
         RenderTarget mockRenderTarget = mockery.mock(RenderTarget.class);
+        STNotifierConfig mockNotifierConfig = mockery.mock(STNotifierConfig.class);
 
+
+        messageRenderer.setStNotifierConfig(mockNotifierConfig);
         messageRenderer.setRenderTarget(mockRenderTarget);
-        messageRenderer.setOffTime(50);
-        messageRenderer.setOnTime(500);
-        messageRenderer.setWaitSpace(550);
-        messageRenderer.setWaitStart(1000);
-        messageRenderer.setWaitEnd(900);
+        STConfig config = new STConfig();
+        config.setOffTime(50);
+        config.setOnTime(500);
+        config.setWaitSpace(550);
+        config.setWaitStart(1000);
+        config.setWaitEnd(900);
+
+        mockery.checking(new Expectations()
+        {
+            {
+                atLeast(1).of(mockNotifierConfig).getConfig();
+                will(returnValue(config));
+            }
+        });
+        messageRenderer.setStNotifierConfig(mockNotifierConfig);
 
 
         STMessage testMessageSource = new STMessage();
