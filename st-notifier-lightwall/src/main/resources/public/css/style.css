@@ -1,0 +1,17 @@
+.message-container .message:nth-child(odd) {
+    background-color: #eee;
+}
+
+.message div {
+    display: inline-block;
+    width: 30%;
+}
+
+.message div.actions a {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-color: #23527c;
+    color: #fff;
+    font-weight: bold;
+}

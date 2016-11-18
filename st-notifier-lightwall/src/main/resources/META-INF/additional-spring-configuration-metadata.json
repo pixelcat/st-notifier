@@ -49,6 +49,16 @@
       "name": "menagerie.stnotifier.wait.betweenMessages",
       "type": "java.lang.String",
       "description": "Description for menagerie.stnotifier.wait.betweenMessages."
+    },
+    {
+      "name": "menagerie.stnotifier.i2c.bus",
+      "type": "java.lang.String",
+      "description": "Description for menagerie.stnotifier.i2c.bus."
+    },
+    {
+      "name": "menagerie.stnotifier.i2c.ht16k33.address",
+      "type": "java.lang.String",
+      "description": "Description for menagerie.stnotifier.i2c.ht16k33.address."
     }
   ]
 }

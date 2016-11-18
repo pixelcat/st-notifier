@@ -1,0 +1,27 @@
+{
+  "name": "st-notifier-lightwall",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Aaron Stewart <aaron@workhabit.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/pixelcat/st-notifier",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.5.8",
+    "angular-bootstrap": "~2.2.0",
+    "bootstrap": "~3.3.7",
+    "angular-route": "~1.5.8",
+    "sockjs-client": "~1.1.1",
+    "stomp-websocket": "~2.3.4",
+    "ng-stomp": "~0.3.0"
+  }
+}

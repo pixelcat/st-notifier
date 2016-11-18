@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <title>ST Notifier Lightwall</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css"/>
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none !important;
+        }
+    </style>
+    <script type="text/javascript" src="/bower_components/bootstrap/bootstrap.min.js"></script>
+</head>
+
+<body ng-app="stnotifier">
+<div class="container">
+    <h1>ST Notifier Messages</h1>
+    <h2>Upcoming Messages</h2>
+    <div class="message-container" ng-controller="UpcomingMessageController" ng-cloak class="ng-cloak">
+        <div class="message" ng-repeat="message in messages">
+            <div class="from">{{message.from}}</div>
+            <div class="messagebody">{{message.body}}</div>
+            <div class="displayeddate">{{message.receivedDate | date:'medium'}}</div>
+            <div class="actions"><a rel="{{message.id}}" ng-click="block(message.id)">Block</a></div>
+        </div>
+    </div>
+
+    <h2>Pending Messages</h2>
+    <div class="message-container" ng-controller="LastViewedMessageController" ng-cloak>
+        <div class="message" ng-repeat="message in messages">
+            <div class="from">{{message.from}}</div>
+            <div class="messagebody">{{message.body}}</div>
+            <div class="receiveddate">{{message.displayedDate | date:'medium'}}</div>
+        </div>
+    </div>
+</div>
+<!-- Latest compiled and minified JavaScript -->
+
+<script src="/bower_components/angular-bootstrap/angular-bootstrap.min.js"></script>
+<script src="/bower_components/angular/angular.min.js"></script>
+<script src="/bower_components/angular-route/angular-route.min.js"></script>
+<script src="/bower_components/sockjs-client/sockjs.client.min.js"></script>
+<script src="/bower_components/stomp-websocket/stomp-websocket.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
