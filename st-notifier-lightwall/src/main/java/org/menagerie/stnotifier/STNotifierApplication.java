@@ -6,6 +6,7 @@ import org.menagerie.stnotifier.console.RenderTarget;
 import org.menagerie.stnotifier.console.SwingRenderTarget;
 import org.menagerie.stnotifier.console.SwingTerminalBean;
 import org.menagerie.stnotifier.console.SwingTerminalBeanImpl;
+import org.menagerie.stnotifier.i2c.I2CRenderTargetImpl;
 import org.menagerie.stnotifier.renderer.MessageRenderer;
 import org.menagerie.stnotifier.renderer.MessageRendererImpl;
 import org.menagerie.stnotifier.renderer.Sleeper;
@@ -41,9 +42,9 @@ public class STNotifierApplication
         new SpringApplicationBuilder(STNotifierApplication.class).headless(false).run(args);
     }
 
-    @Bean(initMethod = "init") RenderTarget swingRenderTarget()
+    @Bean(initMethod = "init") RenderTarget renderTarget()
     {
-        return new SwingRenderTarget();
+        return new I2CRenderTargetImpl();
     }
 
     @Bean MessageRenderer messageRenderer()
@@ -54,11 +55,6 @@ public class STNotifierApplication
     @Bean STNotifierConfig stNotifierConfig()
     {
         return new STNotifierConfigImpl();
-    }
-
-    @Bean SwingTerminalBean swingTerminalBean()
-    {
-        return new SwingTerminalBeanImpl();
     }
 
     @Bean

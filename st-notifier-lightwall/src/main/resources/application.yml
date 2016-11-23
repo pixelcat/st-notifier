@@ -15,10 +15,10 @@ menagerie:
       space: 650
     onTime: 600
     offTime: 50
-    i2c:
-      bus: 1
-      ht16k33:
-        address: 0x70
+  i2c:
+    bus: 1
+    ht16k33:
+      address: 0x70
 spring:
   cloud:
     stream:
