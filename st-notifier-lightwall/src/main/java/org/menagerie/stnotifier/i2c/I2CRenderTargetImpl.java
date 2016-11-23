@@ -1,8 +1,8 @@
 package org.menagerie.stnotifier.i2c;
 
-import jdk.dio.DeviceManager;
-import jdk.dio.i2cbus.I2CDevice;
-import jdk.dio.i2cbus.I2CDeviceConfig;
+import com.pi4j.io.i2c.I2CBus;
+import com.pi4j.io.i2c.I2CDevice;
+import com.pi4j.io.i2c.I2CFactory;
 import org.menagerie.stnotifier.console.RenderTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.*;
 
 /**
@@ -21,26 +20,11 @@ import java.util.*;
 public class I2CRenderTargetImpl implements RenderTarget
 {
 
-    @Value("${menagerie.i2c.bus}")
-    private int i2cBus;
-
-    @Value("${menagerie.i2c.ht16k33.address}")
-    private int i2cAddress;
-
-    private static Logger log = LoggerFactory.getLogger(I2CRenderTargetImpl.class);
-
-    private I2CDeviceConfig i2CDeviceConfig;
-
     private static final byte[] OSCILLATOR_ON = {0x21};
     private static final byte BRIGHTNESS = (byte)0xE0;
-
     private static final byte HT16K33_BLINK_CMD = (byte)0x80;
     private static final byte HT16K33_BLINK_DISPLAYON = (byte)0x01;
-
     private static final byte HT16K33_BLINK_OFF = (byte)0;
-
-    private final Map<Character, int[]> characterMap = new HashMap<>();
-
     private static final Character[] letters = {
             'a',
             'b',
@@ -97,28 +81,42 @@ public class I2CRenderTargetImpl implements RenderTarget
             {0x00, 0x00, 0x00, 0x01}, // y
             {0x00, 0x00, 0x00, 0x02} // z
     };
+    private static Logger log = LoggerFactory.getLogger(I2CRenderTargetImpl.class);
+    private final Map<Character, int[]> characterMap = new HashMap<>();
+    @Value("${menagerie.i2c.bus}")
+    private int i2cBusNumber;
+    @Value("${menagerie.i2c.ht16k33.address}")
+    private int i2cAddress;
+    private I2CDevice i2CDevice;
 
     @Override public void init()
     {
-        List<int[]> ints = Arrays.asList(addresses);
-        List<Character> chars = Arrays.asList(letters);
-        Iterator<int[]> intIter = ints.iterator();
-        Iterator<Character> characterIterator = chars.iterator();
-        while (intIter.hasNext() && characterIterator.hasNext()) {
-            Character charAddress = characterIterator.next();
-            int[] bitmap = intIter.next();
-            characterMap.put(charAddress, bitmap);
+        try {
+            I2CBus i2cBus = I2CFactory.getInstance(i2cBusNumber);
+            i2CDevice = i2cBus.getDevice(i2cAddress);
+
+            List<int[]> ints = Arrays.asList(addresses);
+            List<Character> chars = Arrays.asList(letters);
+            Iterator<int[]> intIter = ints.iterator();
+            Iterator<Character> characterIterator = chars.iterator();
+            while (intIter.hasNext() && characterIterator.hasNext()) {
+                Character charAddress = characterIterator.next();
+                int[] bitmap = intIter.next();
+                characterMap.put(charAddress, bitmap);
+            }
+
+            writeInit(OSCILLATOR_ON);
+
+            setBlinkRate(HT16K33_BLINK_OFF);
+            setBrightness(15);
+        } catch (I2CFactory.UnsupportedBusNumberException | IOException e) {
+            log.error("", e);
         }
 
-        i2CDeviceConfig = new I2CDeviceConfig(i2cBus, i2cAddress, I2CDeviceConfig.ADDR_SIZE_7, 100000);
-        writeInit(OSCILLATOR_ON);
-
-        setBlinkRate(HT16K33_BLINK_OFF);
-        setBrightness(15);
     }
 
 
-    private void setBrightness(int b)
+    private void setBrightness(@SuppressWarnings("SameParameterValue") int b)
     {
 
         if (b > 15) {
@@ -151,14 +149,10 @@ public class I2CRenderTargetImpl implements RenderTarget
 
     private void writeInit(byte[] ea)
     {
-        try (I2CDevice i2CDevice = DeviceManager.open(i2CDeviceConfig)) {
-
-            ByteBuffer blinkRateCmd = ByteBuffer.wrap(ea);
-            i2CDevice.write(blinkRateCmd);
-            i2CDevice.close();
-
-        } catch (IOException ioe) {
-            log.error("", ioe);
+        try {
+            i2CDevice.write(ea);
+        } catch (IOException e) {
+            log.error("", e);
         }
     }
 
@@ -170,23 +164,22 @@ public class I2CRenderTargetImpl implements RenderTarget
 
     private void send(int[] bytes)
     {
-        try (I2CDevice i2CDevice = DeviceManager.open(i2CDeviceConfig)) {
-            i2CDevice.write(0x00, 0x04, ByteBuffer.wrap(Arrays.asList(bytes).toString().getBytes()));
-            i2CDevice.close();
-        } catch (IOException ioe) {
-            log.error("", ioe);
+        try {
+            i2CDevice.write(Arrays.asList(bytes).toString().getBytes(), 0x00, 0x08);
+        } catch (IOException e) {
+            log.error("", e);
         }
     }
 
-    @Override public void setOff(Character target)
+    @Override public void setOff(Character target) throws IOException
     {
         int[] clear = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
         send(clear);
     }
 
-    public void setI2cBus(int i2cBus)
+    public void setI2cBusNumber(int i2cBusNumber)
     {
-        this.i2cBus = i2cBus;
+        this.i2cBusNumber = i2cBusNumber;
     }
 
     public void setI2cAddress(int i2cAddress)
