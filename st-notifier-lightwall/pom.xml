@@ -27,6 +27,7 @@
             </activation>
             <properties>
                 <node.download.root>https://nodejs.org/dist/</node.download.root>
+                <lightwall.test.excludes>**/dummy.java</lightwall.test.excludes>
             </properties>
         </profile>
         <profile>
@@ -37,6 +38,7 @@
                 </os>
             </activation>
             <properties>
+                <lightwall.test.excludes>**/SwingTerminalBeanTest.java</lightwall.test.excludes>
                 <node.download.root>http://dployr.com/armnode_facade/</node.download.root>
             </properties>
         </profile>
