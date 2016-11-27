@@ -21,6 +21,15 @@
 
     <profiles>
         <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <node.download.root>https://nodejs.org/dist/</node.download.root>
+            </properties>
+        </profile>
+        <profile>
             <id>arm-architecture</id>
             <activation>
                 <os>
@@ -28,9 +37,10 @@
                 </os>
             </activation>
             <properties>
-                <skip.node.install>true</skip.node.install>
+                <node.download.root>http://dployr.com/armnode_facade/</node.download.root>
             </properties>
         </profile>
+
     </profiles>
 
 
@@ -108,6 +118,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <nodeDownloadRoot>${node.download.root}</nodeDownloadRoot>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -236,9 +249,9 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.pi4j/pi4j-native -->
         <!--<dependency>-->
-            <!--<groupId>com.pi4j</groupId>-->
-            <!--<artifactId>pi4j-native</artifactId>-->
-            <!--<version>1.1</version>-->
+        <!--<groupId>com.pi4j</groupId>-->
+        <!--<artifactId>pi4j-native</artifactId>-->
+        <!--<version>1.1</version>-->
         <!--</dependency>-->
     </dependencies>
 
