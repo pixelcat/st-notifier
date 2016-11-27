@@ -10,7 +10,7 @@ public interface RenderTarget
 {
     void setOn(Character target);
 
-    void setOff(Character target) throws IOException;
+    void setOff(Character target);
 
     void init();
 }

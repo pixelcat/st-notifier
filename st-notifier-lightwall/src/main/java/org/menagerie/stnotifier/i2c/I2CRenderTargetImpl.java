@@ -1,11 +1,10 @@
 package org.menagerie.stnotifier.i2c;
 
-import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
-import com.pi4j.io.i2c.I2CFactory;
 import org.menagerie.stnotifier.console.RenderTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -53,65 +52,63 @@ public class I2CRenderTargetImpl implements RenderTarget
             'y',
             'z'
     };
-    private static final int[][] addresses = {
-            {0x01, 0x00, 0x00, 0x00}, //a
-            {0x02, 0x00, 0x00, 0x00}, //b
-            {0x04, 0x00, 0x00, 0x00}, //c
-            {0x08, 0x00, 0x00, 0x00}, //d
-            {0x10, 0x00, 0x00, 0x00}, // e
-            {0x20, 0x00, 0x00, 0x00}, // f
-            {0x40, 0x00, 0x00, 0x00}, // g
-            {0x80, 0x00, 0x00, 0x00}, // h
-            {0x00, 0x01, 0x00, 0x00}, // i
-            {0x00, 0x02, 0x00, 0x00}, // j
-            {0x00, 0x04, 0x00, 0x00}, // k
-            {0x00, 0x08, 0x00, 0x00}, // l
-            {0x00, 0x10, 0x00, 0x00}, // m
-            {0x00, 0x20, 0x00, 0x00}, // n
-            {0x00, 0x40, 0x00, 0x00}, // o
-            {0x00, 0x80, 0x00, 0x00}, // p
-            {0x00, 0x00, 0x01, 0x00}, // q
-            {0x00, 0x00, 0x02, 0x00}, // r
-            {0x00, 0x00, 0x04, 0x00}, // s
-            {0x00, 0x00, 0x08, 0x00}, // t
-            {0x00, 0x00, 0x10, 0x00}, // u
-            {0x00, 0x00, 0x20, 0x00}, // v
-            {0x00, 0x00, 0x40, 0x00}, // w
-            {0x00, 0x00, 0x80, 0x00}, // x
-            {0x00, 0x00, 0x00, 0x01}, // y
-            {0x00, 0x00, 0x00, 0x02} // z
+    private static final byte[][] registerAddress = {
+            {0x00, 0x01}, //a
+            {0x00, 0x02}, //b
+            {0x00, 0x04}, //c
+            {0x00, 0x08}, //d
+            {0x10, 0x10}, // e
+            {0x20, 0x20}, // f
+            {0x40, 0x40}, // g
+            {0x00, (byte)0x80}, // h
+            {0x01, 0x01}, // i
+            {0x01, 0x02}, // j
+            {0x01, 0x04}, // k
+            {0x01, 0x08}, // l
+            {0x01, 0x10}, // m
+            {0x01, 0x20}, // n
+            {0x01, 0x40}, // o
+            {0x01, (byte)0x80}, // p
+            {0x02, 0x01}, // q
+            {0x02, 0x02}, // r
+            {0x02, 0x04}, // s
+            {0x02, 0x08}, // t
+            {0x02, 0x10}, // u
+            {0x02, 0x20}, // v
+            {0x02, 0x40}, // w
+            {0x02, (byte)0x80}, // x
+            {0x04, 0x01}, // y
+            {0x04, 0x02} // z
     };
     private static Logger log = LoggerFactory.getLogger(I2CRenderTargetImpl.class);
-    private final Map<Character, int[]> characterMap = new HashMap<>();
-    @Value("${menagerie.i2c.bus}")
-    private int i2cBusNumber;
+    private final Map<Character, byte[]> characterMap = new HashMap<>();
+
     @Value("${menagerie.i2c.ht16k33.address}")
     private int i2cAddress;
+
     private I2CDevice i2CDevice;
+
+    private I2CDeviceFactory i2CDeviceFactory;
 
     @Override public void init()
     {
-        try {
-            I2CBus i2cBus = I2CFactory.getInstance(i2cBusNumber);
-            i2CDevice = i2cBus.getDevice(i2cAddress);
+        i2CDevice = i2CDeviceFactory.getDevice(i2cAddress);
 
-            List<int[]> ints = Arrays.asList(addresses);
-            List<Character> chars = Arrays.asList(letters);
-            Iterator<int[]> intIter = ints.iterator();
-            Iterator<Character> characterIterator = chars.iterator();
-            while (intIter.hasNext() && characterIterator.hasNext()) {
-                Character charAddress = characterIterator.next();
-                int[] bitmap = intIter.next();
-                characterMap.put(charAddress, bitmap);
-            }
-
-            writeInit(OSCILLATOR_ON);
-
-            setBlinkRate(HT16K33_BLINK_OFF);
-            setBrightness(15);
-        } catch (I2CFactory.UnsupportedBusNumberException | IOException e) {
-            log.error("", e);
+        List<byte[]> bytes = Arrays.asList(registerAddress);
+        List<Character> chars = Arrays.asList(letters);
+        Iterator<byte[]> intIter = bytes.iterator();
+        Iterator<Character> characterIterator = chars.iterator();
+        while (intIter.hasNext() && characterIterator.hasNext()) {
+            Character charAddress = characterIterator.next();
+            byte[] bitmap = intIter.next();
+            characterMap.put(charAddress, bitmap);
         }
+
+        writeInit(OSCILLATOR_ON);
+
+        setBlinkRate(HT16K33_BLINK_OFF);
+        setBrightness(15);
+        setOff(' ');
 
     }
 
@@ -158,32 +155,50 @@ public class I2CRenderTargetImpl implements RenderTarget
 
     @Override public void setOn(Character target)
     {
-        send(characterMap.get(target));
+        Character normalizedTarget = Character.toLowerCase(target);
+
+        byte[] bytes = characterMap.get(normalizedTarget);
+        if (bytes == null) {
+            log.warn("Invalid character passed. Gracefully refusing to print it.");
+            return;
+        }
+        send(bytes);
 
     }
 
-    private void send(int[] bytes)
+    private void send(byte[] bytes)
     {
         try {
-            i2CDevice.write(Arrays.asList(bytes).toString().getBytes(), 0x00, 0x08);
+            byte address = bytes[0];
+            byte value = bytes[1];
+            i2CDevice.write(address, value);
         } catch (IOException e) {
             log.error("", e);
         }
     }
 
-    @Override public void setOff(Character target) throws IOException
+    @Override public void setOff(Character target)
     {
-        int[] clear = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-        send(clear);
-    }
-
-    public void setI2cBusNumber(int i2cBusNumber)
-    {
-        this.i2cBusNumber = i2cBusNumber;
+        byte[][] clear = {
+                {0x00, 0x00},
+                {0x01, 0x00},
+                {0x02, 0x00},
+                {0x04, 0x00}
+        };
+        // zero out register
+        for (byte[] aClear : clear) {
+            send(aClear);
+        }
     }
 
     public void setI2cAddress(int i2cAddress)
     {
         this.i2cAddress = i2cAddress;
+    }
+
+    @Autowired
+    public void setI2CDeviceFactory(I2CDeviceFactory i2CDeviceFactory)
+    {
+        this.i2CDeviceFactory = i2CDeviceFactory;
     }
 }

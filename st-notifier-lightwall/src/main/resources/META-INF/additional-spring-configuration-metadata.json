@@ -59,6 +59,16 @@
       "name": "menagerie.stnotifier.i2c.ht16k33.address",
       "type": "java.lang.String",
       "description": "Description for menagerie.stnotifier.i2c.ht16k33.address."
+    },
+    {
+      "name": "menagerie.i2c.bus",
+      "type": "java.lang.String",
+      "description": "Description for menagerie.i2c.bus."
+    },
+    {
+      "name": "menagerie.i2c.ht16k33.address",
+      "type": "java.lang.String",
+      "description": "Description for menagerie.i2c.ht16k33.address."
     }
   ]
 }

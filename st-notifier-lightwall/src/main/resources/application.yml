@@ -12,9 +12,9 @@ menagerie:
       betweenMessages: 60000
       start: 5000
       end: 5000
-      space: 650
-    onTime: 600
-    offTime: 50
+      space: 950
+    onTime: 1200
+    offTime: 200
   i2c:
     bus: 1
     ht16k33:

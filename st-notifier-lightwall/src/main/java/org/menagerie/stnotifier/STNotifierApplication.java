@@ -3,6 +3,8 @@ package org.menagerie.stnotifier;
 import org.menagerie.stnotifier.config.STNotifierConfig;
 import org.menagerie.stnotifier.config.STNotifierConfigImpl;
 import org.menagerie.stnotifier.console.RenderTarget;
+import org.menagerie.stnotifier.i2c.I2CDeviceFactory;
+import org.menagerie.stnotifier.i2c.I2CDeviceFactoryImpl;
 import org.menagerie.stnotifier.i2c.I2CRenderTargetImpl;
 import org.menagerie.stnotifier.renderer.MessageRenderer;
 import org.menagerie.stnotifier.renderer.MessageRendererImpl;
@@ -13,7 +15,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -40,13 +41,19 @@ public class STNotifierApplication
         new SpringApplicationBuilder(STNotifierApplication.class).headless(false).run(args);
     }
 
-    @Profile("rpi")
     @Bean(initMethod = "init") RenderTarget renderTarget()
     {
         return new I2CRenderTargetImpl();
     }
 
-    @Bean MessageRenderer messageRenderer()
+    @Bean(initMethod = "init")
+    I2CDeviceFactory i2CDeviceFactory()
+    {
+        return new I2CDeviceFactoryImpl();
+    }
+
+    @Bean(initMethod = "init")
+    MessageRenderer messageRenderer()
     {
         return new MessageRendererImpl();
     }

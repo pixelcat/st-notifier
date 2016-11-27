@@ -26,6 +26,26 @@ public class MessageRendererImpl implements MessageRenderer
 
     private Sleeper sleeper;
 
+    public void init() {
+        // run a test to validate lights work at boot
+        String alpha = "abcdefghijklmnopqrstuvwxyz";
+
+        char[] alphaArray = alpha.toCharArray();
+        for (char c : alphaArray) {
+            renderTarget.setOn(c);
+            sleeper.doSleep(25);
+            renderTarget.setOff(c);
+        }
+        for (int i = alphaArray.length; i > 0; i--) {
+
+            char c = alphaArray[i-1];
+            renderTarget.setOn(c);
+            sleeper.doSleep(25);
+            renderTarget.setOff(c);
+        }
+
+    }
+
     @Override public void render(STMessage messageSource)
     {
         STConfig config = stNotifierConfig.getConfig();
