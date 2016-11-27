@@ -10,7 +10,7 @@ public interface RenderTarget
 {
     void setOn(Character target);
 
-    void setOff(Character target);
+    void setAllOff();
 
     void init();
 }

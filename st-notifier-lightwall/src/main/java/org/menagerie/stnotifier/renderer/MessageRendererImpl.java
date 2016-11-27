@@ -31,22 +31,21 @@ public class MessageRendererImpl implements MessageRenderer
 
     public void init() {
         // run a test to validate lights work at boot
-//        String alpha = "abcdefghijklmnopqrstuvwxyz";
-//
-//        char[] alphaArray = alpha.toCharArray();
-//        for (char c : alphaArray) {
-//            renderTarget.setOn(c);
-//            sleeper.doSleep(100);
-//            renderTarget.setOff(c);
-//        }
-//        for (int i = alphaArray.length; i > 0; i--) {
-//
-//            char c = alphaArray[i-1];
-//            renderTarget.setOn(c);
-//            sleeper.doSleep(100);
-//            renderTarget.setOff(c);
-//        }
+        String alpha = "abcdefghijklmnopqrstuvwxyz";
 
+        char[] alphaArray = alpha.toCharArray();
+        for (char c : alphaArray) {
+            renderTarget.setOn(c);
+            sleeper.doSleep(100);
+            renderTarget.setAllOff();
+        }
+        for (int i = alphaArray.length; i > 0; i--) {
+
+            char c = alphaArray[i-1];
+            renderTarget.setOn(c);
+            sleeper.doSleep(100);
+            renderTarget.setAllOff();
+        }
     }
 
     @Override public void render(STMessage messageSource)
@@ -73,7 +72,7 @@ public class MessageRendererImpl implements MessageRenderer
             }
             renderTarget.setOn(c);
             sleeper.doSleep(config.getOnTime());
-            renderTarget.setOff(c);
+            renderTarget.setAllOff();
             sleeper.doSleep(config.getOffTime());
         }
         if (config.getWaitEnd() > 0) {

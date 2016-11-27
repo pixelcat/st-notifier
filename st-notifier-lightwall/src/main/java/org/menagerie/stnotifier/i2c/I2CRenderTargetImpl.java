@@ -108,7 +108,7 @@ public class I2CRenderTargetImpl implements RenderTarget
 
         setBlinkRate(HT16K33_BLINK_OFF);
         setBrightness(15);
-        setOff(' ');
+        setAllOff();
 
     }
 
@@ -144,10 +144,10 @@ public class I2CRenderTargetImpl implements RenderTarget
         writeInit(ea);
     }
 
-    private void writeInit(byte[] ea)
+    private void writeInit(byte[] initValue)
     {
         try {
-            i2CDevice.write(ea);
+            i2CDevice.write(initValue);
         } catch (IOException e) {
             log.error("", e);
         }
@@ -177,7 +177,7 @@ public class I2CRenderTargetImpl implements RenderTarget
         }
     }
 
-    @Override public void setOff(Character target)
+    @Override public void setAllOff()
     {
         byte[][] clear = {
                 {0x00, 0x00},

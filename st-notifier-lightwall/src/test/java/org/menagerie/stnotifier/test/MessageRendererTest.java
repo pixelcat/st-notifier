@@ -88,27 +88,27 @@ public class MessageRendererTest
 
                 Sequence sequence = mockery.sequence("characters");
                 exactly(1).of(mockRenderTarget).setOn(with(equalTo('t'))); inSequence(sequence);
-                exactly(1).of(mockRenderTarget).setOff(with(equalTo('t'))); inSequence(sequence);
+                exactly(1).of(mockRenderTarget).setAllOff(); inSequence(sequence);
                 exactly(1).of(mockRenderTarget).setOn(with(equalTo('e'))); inSequence(sequence);
-                exactly(1).of(mockRenderTarget).setOff(with(equalTo('e'))); inSequence(sequence);
+                exactly(1).of(mockRenderTarget).setAllOff(); inSequence(sequence);
                 exactly(1).of(mockRenderTarget).setOn(with(equalTo('s'))); inSequence(sequence);
-                exactly(1).of(mockRenderTarget).setOff(with(equalTo('s'))); inSequence(sequence);
+                exactly(1).of(mockRenderTarget).setAllOff(); inSequence(sequence);
                 exactly(1).of(mockRenderTarget).setOn(with(equalTo('t'))); inSequence(sequence);
-                exactly(1).of(mockRenderTarget).setOff(with(equalTo('t'))); inSequence(sequence);
+                exactly(1).of(mockRenderTarget).setAllOff(); inSequence(sequence);
                 exactly(1).of(mockRenderTarget).setOn(with(equalTo('m'))); inSequence(sequence);
-                exactly(1).of(mockRenderTarget).setOff(with(equalTo('m'))); inSequence(sequence);
+                exactly(1).of(mockRenderTarget).setAllOff(); inSequence(sequence);
                 exactly(1).of(mockRenderTarget).setOn(with(equalTo('e'))); inSequence(sequence);
-                exactly(1).of(mockRenderTarget).setOff(with(equalTo('e'))); inSequence(sequence);
+                exactly(1).of(mockRenderTarget).setAllOff(); inSequence(sequence);
                 exactly(1).of(mockRenderTarget).setOn(with(equalTo('s'))); inSequence(sequence);
-                exactly(1).of(mockRenderTarget).setOff(with(equalTo('s'))); inSequence(sequence);
+                exactly(1).of(mockRenderTarget).setAllOff(); inSequence(sequence);
                 exactly(1).of(mockRenderTarget).setOn(with(equalTo('s'))); inSequence(sequence);
-                exactly(1).of(mockRenderTarget).setOff(with(equalTo('s'))); inSequence(sequence);
+                exactly(1).of(mockRenderTarget).setAllOff(); inSequence(sequence);
                 exactly(1).of(mockRenderTarget).setOn(with(equalTo('a'))); inSequence(sequence);
-                exactly(1).of(mockRenderTarget).setOff(with(equalTo('a'))); inSequence(sequence);
+                exactly(1).of(mockRenderTarget).setAllOff(); inSequence(sequence);
                 exactly(1).of(mockRenderTarget).setOn(with(equalTo('g'))); inSequence(sequence);
-                exactly(1).of(mockRenderTarget).setOff(with(equalTo('g'))); inSequence(sequence);
+                exactly(1).of(mockRenderTarget).setAllOff(); inSequence(sequence);
                 exactly(1).of(mockRenderTarget).setOn(with(equalTo('e'))); inSequence(sequence);
-                exactly(1).of(mockRenderTarget).setOff(with(equalTo('e'))); inSequence(sequence);
+                exactly(1).of(mockRenderTarget).setAllOff(); inSequence(sequence);
 
                 // spaces
                 exactly(1).of(sleeper).doSleep(550);

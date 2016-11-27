@@ -64,7 +64,7 @@ public class SwingRenderTargetTest
         log.info("Rendering character: " + randomChar);
         swingRenderTarget.setOn(randomChar);
 
-        swingRenderTarget.setOff(randomChar);
+        swingRenderTarget.setAllOff();
 
     }
 }

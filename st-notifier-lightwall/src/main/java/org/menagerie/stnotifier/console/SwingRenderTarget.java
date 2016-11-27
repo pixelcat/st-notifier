@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Copyright 2016 - Aaron Stewart
@@ -76,11 +77,13 @@ public class SwingRenderTarget implements RenderTarget
 
     }
 
-    @Override public void setOff(Character target)
+    @Override public void setAllOff()
     {
         init();
-        Label label = targets.get(Character.toLowerCase(target));
-        label.setText("");
+        Set<Map.Entry<Character, Label>> entries = targets.entrySet();
+        for (Map.Entry<Character, Label> entry : entries) {
+            entry.getValue().setText("");
+        }
         try {
             gui.updateScreen();
         } catch (IOException e) {

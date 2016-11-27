@@ -37,7 +37,7 @@ public class I2CRenderTargetTest
                 oneOf(mockI2cDevice).write(new byte[]{(byte)0x81});
                 oneOf(mockI2cDevice).write(new byte[]{(byte)0xef});
                 // character write
-                oneOf(mockI2cDevice).write(0x20, (byte)0x20);
+                oneOf(mockI2cDevice).write(0x00, (byte)0x20);
 
                 // character clear
                 exactly(2).of(mockI2cDevice).write(0x00, (byte)0x00);
@@ -50,7 +50,7 @@ public class I2CRenderTargetTest
         i2CRenderTarget.init();
 
         i2CRenderTarget.setOn('f');
-        i2CRenderTarget.setOff('f');
+        i2CRenderTarget.setAllOff();
 
         mockery.assertIsSatisfied();
     }
