@@ -5,6 +5,8 @@ import org.menagerie.stnotifier.config.STNotifierConfig;
 import org.menagerie.stnotifier.console.RenderTarget;
 import org.menagerie.stnotifier.model.STConfig;
 import org.menagerie.stnotifier.model.STMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Processor;
@@ -17,6 +19,7 @@ import org.springframework.messaging.support.GenericMessage;
 @EnableBinding(Processor.class)
 public class MessageRendererImpl implements MessageRenderer
 {
+    private static Logger log = LoggerFactory.getLogger(MessageRendererImpl.class);
     private RenderTarget renderTarget;
 
     private STNotifierConfig stNotifierConfig;
@@ -28,26 +31,27 @@ public class MessageRendererImpl implements MessageRenderer
 
     public void init() {
         // run a test to validate lights work at boot
-        String alpha = "abcdefghijklmnopqrstuvwxyz";
-
-        char[] alphaArray = alpha.toCharArray();
-        for (char c : alphaArray) {
-            renderTarget.setOn(c);
-            sleeper.doSleep(100);
-            renderTarget.setOff(c);
-        }
-        for (int i = alphaArray.length; i > 0; i--) {
-
-            char c = alphaArray[i-1];
-            renderTarget.setOn(c);
-            sleeper.doSleep(100);
-            renderTarget.setOff(c);
-        }
+//        String alpha = "abcdefghijklmnopqrstuvwxyz";
+//
+//        char[] alphaArray = alpha.toCharArray();
+//        for (char c : alphaArray) {
+//            renderTarget.setOn(c);
+//            sleeper.doSleep(100);
+//            renderTarget.setOff(c);
+//        }
+//        for (int i = alphaArray.length; i > 0; i--) {
+//
+//            char c = alphaArray[i-1];
+//            renderTarget.setOn(c);
+//            sleeper.doSleep(100);
+//            renderTarget.setOff(c);
+//        }
 
     }
 
     @Override public void render(STMessage messageSource)
     {
+        log.info("Displaying message: " + messageSource.getBody() + ".");
         STConfig config = stNotifierConfig.getConfig();
 
         VideoStartMessage startMessage = new VideoStartMessage();
@@ -75,6 +79,7 @@ public class MessageRendererImpl implements MessageRenderer
         if (config.getWaitEnd() > 0) {
             sleeper.doSleep(config.getWaitEnd());
         }
+        log.info("Finished displaying message.");
     }
 
     @Autowired
