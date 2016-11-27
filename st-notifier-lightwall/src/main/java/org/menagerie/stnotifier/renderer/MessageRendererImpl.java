@@ -33,14 +33,14 @@ public class MessageRendererImpl implements MessageRenderer
         char[] alphaArray = alpha.toCharArray();
         for (char c : alphaArray) {
             renderTarget.setOn(c);
-            sleeper.doSleep(25);
+            sleeper.doSleep(100);
             renderTarget.setOff(c);
         }
         for (int i = alphaArray.length; i > 0; i--) {
 
             char c = alphaArray[i-1];
             renderTarget.setOn(c);
-            sleeper.doSleep(25);
+            sleeper.doSleep(100);
             renderTarget.setOff(c);
         }
 
