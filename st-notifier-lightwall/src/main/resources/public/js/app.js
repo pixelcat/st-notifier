@@ -1,4 +1,4 @@
-var stNotifierApp = angular.module('stnotifier', ['ngRoute', 'ngStomp'])
+var stNotifierApp = angular.module('stnotifier', ['ngRoute'])
     .controller(
         'UpcomingMessageController', ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
           $scope.reload = function () {
