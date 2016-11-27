@@ -52,6 +52,7 @@ public class STNotifierApplication
         return new I2CDeviceFactoryImpl();
     }
 
+    @Bean(initMethod = "init")
     MessageRenderer messageRenderer()
     {
         return new MessageRendererImpl();
