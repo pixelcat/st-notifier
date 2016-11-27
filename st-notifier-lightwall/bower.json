@@ -22,6 +22,7 @@
     "angular-route": "~1.5.8",
     "sockjs-client": "~1.1.1",
     "stomp-websocket": "~2.3.4",
-    "ng-stomp": "~0.3.0"
+    "ng-stomp": "~0.3.0",
+    "jquery": "~3.1.1"
   }
 }
