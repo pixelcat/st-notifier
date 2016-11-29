@@ -1,45 +1,157 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ST Notifier Lightwall</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
     <link rel="stylesheet" href="/css/style.css"/>
     <style type="text/css">
         [ng\:cloak], [ng-cloak], .ng-cloak {
             display: none !important;
         }
     </style>
-    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 </head>
 
-<body ng-app="stnotifier">
+<body ng-app="stnotifier" ng-controller="TabController">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container" ng-cloak class="ng-cloak">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="/">Stranger Things:</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li ng-repeat="tab in tabs"
+                    ng-class="{active:isActiveTab(tab.url)}">
+                    <a href="#" ng-click="onClickTab(tab)">{{tab.title}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
+    <div id="mainView">
+        <div ng-include="currentTab"></div>
+    </div>
+</div>
+<script type="text/ng-template" id="messages.html">
     <h1>ST Notifier Messages</h1>
     <h2>Upcoming Messages</h2>
     <div class="message-container" ng-controller="UpcomingMessageController" ng-cloak class="ng-cloak">
-        <div class="message" ng-repeat="message in messages">
-            <div class="from">{{message.from}}</div>
-            <div class="messagebody">{{message.body}}</div>
-            <div class="displayeddate">{{message.receivedDate | date:'medium'}}</div>
-            <div class="actions"><a rel="{{message.id}}" ng-click="block(message.id)">Block</a></div>
+        <div ng-switch="paused">
+            <div ng-switch-when="true"><a ng-click="resumeMessages()">Resume Message Processing</a></div>
+            <div ng-switch-default><a ng-click="pauseMessages()">Pause Message Processing</a></div>
+        </div>
+        <div class="container container-table">
+            <div class="message row" ng-repeat="message in messages">
+                <div class="col-sm-2 cell from">{{message.from}}</div>
+                <div class="col-sm-4 cell messagebody">{{message.body}}</div>
+                <div class="col-sm-3 cell displayeddate">{{message.receivedDate | date:'medium'}}</div>
+                <div class="col-sm-3 cell actions">
+                    <div class="button-actions">
+                        <button type="button" ng-if="!message.blocked" rel="{{message.id}}" class="btn btn-danger"
+                                ng-click="block(message)">
+                            Block
+                        </button>
+                        <button type="button" ng-if="message.blocked" rel="{{message.id}}" class="btn btn-warning"
+                                ng-click="unblock(message)">
+                            Unblock
+                        </button>
+                        <button type="button" ng-if="!message.stickyToTop" rel="{{message.id}}" class="btn btn-primary"
+                                ng-click="markSticky(message)">
+                            Move to Top
+                        </button>
+                        <button type="button" ng-if="message.stickyToTop" rel="{{message.id}}" class="btn btn-info" ng-click="unmarkSticky(message)">Undo
+                            Move to Top
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <h2>Message History</h2>
-    <h3>Note: these messages have already been displayed.</h3>
-    <div class="message-container" ng-controller="LastViewedMessageController" ng-cloak>
-        <div class="message" ng-repeat="message in messages">
-            <div class="from">{{message.from}}</div>
-            <div class="messagebody">{{message.body}}</div>
-            <div class="receiveddate">{{message.displayedDate | date:'medium'}}</div>
+    <p>Note: these messages have already been displayed.</p>
+    <div class="message-container container container-table" ng-controller="LastViewedMessageController" ng-cloak>
+        <div class="row header">
+            <div class="col-sm-3 cell from">From:</div>
+            <div class="col-sm-4 cell messagebody">Message:</div>
+            <div class="col-sm-3 cell receiveddate">Received Date:</div>
+            <div class="col-sm-2 cell actions">Actions:</div>
+        </div>
+        <div class="message row" ng-repeat="message in messages">
+            <div class="col-sm-3 cell from">{{message.from}}</div>
+            <div class="col-sm-4 cell messagebody">{{message.body}}</div>
+            <div class="col-sm-3 cell receiveddate">{{message.displayedDate | date:'medium'}}</div>
+            <div class="col-sm-2 cell actions">
+                <button ng-if="message.blocked" type="button" class="btn btn-warning" ng-click="unblock(message.id)">
+                    Unblock
+                </button>
+            </div>
         </div>
     </div>
-</div>
+</script>
+
+<script type="text/ng-template" id="config.html">
+    <div class="config" ng-controller="ConfigController">
+        <h1>Configuration</h1>
+        <p>(all times are in milliseconds)</p>
+        <form novalidate class="config-form">
+            <div class="form-item"><label>Quiet time between messages: <input type="text"
+                                                                              ng-model="config.waitBetweenMessages"></label>
+            </div>
+            <div class="form-item"><label>Time to leave light on: <input type="text"
+                                                                         ng-model="config.onTime"/></label>
+            </div>
+            <div class="form-item"><label>Delay in between light pulses: <input type="text"
+                                                                                ng-model="config.offTime"/></label>
+            </div>
+            <div class="form-item"><label>Time to wait when a space is hit: <input type="text"
+                                                                                   ng-model="config.waitSpace"/></label>
+            </div>
+            <div class="form-item"><label>Time to wait after a message is complete (with camera on):
+                <input type="text"
+                       ng-model="config.waitEnd"/></label></div>
+            <div class="form-item"><label>Time to wait before a message starts (with camera on):
+                <input type="text"
+                       ng-model="config.waitStart"/></label></div>
+            <div class="form-item">
+                <button type="button" class="btn btn-secondary" ng-click="reset()">Reset</button>
+            </div>
+            <div class="form-item">
+                <button type="button" class="btn btn-primary" ng-click="update(config)">Save Configuration</button>
+            </div>
+        </form>
+    </div>
+</script>
+
 <!-- Latest compiled and minified JavaScript -->
+
+<script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 
 <script src="/bower_components/angular/angular.js"></script>
 <script src="/bower_components/angular-bootstrap/ui-bootstrap.js"></script>

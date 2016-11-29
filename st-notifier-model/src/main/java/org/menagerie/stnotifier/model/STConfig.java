@@ -19,6 +19,7 @@ public class STConfig
     private int waitSpace;
     private int waitEnd;
     private int waitStart;
+    private boolean paused = false;
 
     public ObjectId getId()
     {
@@ -98,5 +99,15 @@ public class STConfig
     public int getWaitStart()
     {
         return waitStart;
+    }
+
+    public boolean isPaused()
+    {
+        return paused;
+    }
+
+    public void setPaused(boolean paused)
+    {
+        this.paused = paused;
     }
 }

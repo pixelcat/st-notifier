@@ -3,9 +3,9 @@ java:
     headless: false
 logging:
   level:
-    org.springframework.data.mongodb: DEBUG
+    org.springframework.data.mongodb: WARN
     org.menagerie.stnotifier: DEBUG
-    org.springframework.boot: DEBUG
+    org.springframework.boot: WARN
 menagerie:
   stnotifier:
     wait:

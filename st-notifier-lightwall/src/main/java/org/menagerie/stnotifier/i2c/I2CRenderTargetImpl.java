@@ -181,9 +181,9 @@ public class I2CRenderTargetImpl implements RenderTarget
     {
         byte[][] clear = {
                 {0x00, 0x00},
-                {0x01, 0x00},
                 {0x02, 0x00},
-                {0x04, 0x00}
+                {0x04, 0x00},
+                {0x08, 0x00}
         };
         // zero out register
         for (byte[] aClear : clear) {

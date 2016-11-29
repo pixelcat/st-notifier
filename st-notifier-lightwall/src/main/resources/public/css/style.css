@@ -1,17 +1,45 @@
+body {
+    padding-top: 50px;
+}
+
 .message-container .message:nth-child(odd) {
     background-color: #eee;
 }
 
-.message div {
-    display: inline-block;
-    width: 30%;
+#mainView {
+    clear: both;
+    padding: 0 1em;
 }
 
-.message div.actions a {
-    display: block;
-    width: 40px;
-    height: 40px;
-    background-color: #23527c;
-    color: #fff;
+.header div {
     font-weight: bold;
+    display: inline-block;
 }
+
+
+.container-table {
+    display: table;
+}
+
+.row {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: table-row;
+    vertical-align: middle;
+}
+
+.row div {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    vertical-align: middle;
+}
+
+.row .cell {
+    display: table-cell;
+}
+
+.button-actions {
+    margin: auto;
+    text-align: center;
+}
+

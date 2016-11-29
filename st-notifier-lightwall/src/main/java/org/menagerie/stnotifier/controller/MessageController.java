@@ -1,5 +1,6 @@
 package org.menagerie.stnotifier.controller;
 
+import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.menagerie.stnotifier.config.STNotifierConfig;
 import org.menagerie.stnotifier.model.STConfig;
@@ -35,7 +36,17 @@ public class MessageController
     public List<STMessage> getRecentlyDisplayedMessages()
     {
         PageRequest pageRequest = new PageRequest(0, 30);
-        return stMessageRepository.findByDisplayedOrderByReceivedDateDesc(true, pageRequest);
+        return stMessageRepository.findByDisplayedOrderByStickyToTopDescReceivedDateDesc(true, pageRequest);
+    }
+
+    @RequestMapping(value = "/message/marksticky/{messageId}/{sticky}", method = RequestMethod.GET)
+    @ResponseBody
+    public STMessage markMessageSticky(@PathVariable String messageId, @PathVariable boolean sticky)
+    {
+        STMessage stMessage = stMessageRepository.findOne(new ObjectId(messageId));
+        stMessage.setStickyToTop(sticky);
+        stMessageRepository.save(stMessage);
+        return stMessage;
     }
 
     @RequestMapping(path = "/message/upcoming", method = RequestMethod.GET)
@@ -43,7 +54,8 @@ public class MessageController
     public List<STMessage> getUpcomingMessages()
     {
         PageRequest pageRequest = new PageRequest(0, 30);
-        return stMessageRepository.findByDisplayedOrderByReceivedDateDesc(false, pageRequest);
+        List<STMessage> messages = stMessageRepository.findByDisplayedOrderByStickyToTopDescReceivedDateDesc(false, pageRequest);
+        return messages;
     }
 
     @RequestMapping(path = "/message", method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE})
@@ -96,6 +108,9 @@ public class MessageController
         message.setToState(toState);
         message.setToZip(toZip);
 
+        message.setBlocked(false);
+        message.setDisplayed(false);
+
         stMessageRepository.insert(message);
 
         return new TwilioResponse("Your message from the Upside Down has been received.");
@@ -113,16 +128,54 @@ public class MessageController
         this.stNotifierConfig = stNotifierConfig;
     }
 
-    @RequestMapping(path = "/config", method = RequestMethod.GET)
+
+    @RequestMapping(path = "/message/block/{messageId}", method = RequestMethod.GET)
+    @ResponseBody
+    public String blockMessage(@PathVariable String messageId) {
+        STMessage message = stMessageRepository.findOne(new ObjectId(messageId));
+        message.setBlocked(true);
+        stMessageRepository.save(message);
+        return String.valueOf(true);
+    }
+
+    @RequestMapping(path = "/message/unblock/{messageId}", method = RequestMethod.GET)
+    @ResponseBody
+    public String unBlockMessage(@PathVariable String messageId) {
+        STMessage message = stMessageRepository.findOne(new ObjectId(messageId));
+        message.setBlocked(false);
+        stMessageRepository.save(message);
+        return String.valueOf(true);
+    }
+
+    @RequestMapping(path = "/st-config", method = RequestMethod.GET)
+    @ResponseBody
     public STConfig getConfig()
     {
         return stNotifierConfig.getConfig();
     }
 
 
-    @RequestMapping(path = "/config", method = RequestMethod.POST)
+    @RequestMapping(path = "/st-config", method = RequestMethod.POST)
+    @ResponseBody
     public STConfig postConfig(@RequestBody STConfig config)
     {
         return stNotifierConfig.saveConfig(config);
+    }
+
+    @RequestMapping(path = "/st-listener/{paused}")
+    @ResponseBody
+    public String configurePause(@PathVariable Boolean paused)
+    {
+        STConfig config = stNotifierConfig.getConfig();
+        config.setPaused(paused);
+        stNotifierConfig.saveConfig(config);
+        return String.valueOf(paused);
+    }
+
+    @RequestMapping(path = "/st-listener")
+    @ResponseBody
+    public String getPausedStatus() {
+        STConfig config = stNotifierConfig.getConfig();
+        return String.valueOf(config.isPaused());
     }
 }

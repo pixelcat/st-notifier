@@ -1,5 +1,6 @@
 package org.menagerie.stnotifier.renderer;
 
+import com.google.common.collect.Lists;
 import org.menagerie.stnotifier.binding.VideoStartMessage;
 import org.menagerie.stnotifier.config.STNotifierConfig;
 import org.menagerie.stnotifier.console.RenderTarget;
@@ -11,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.messaging.support.GenericMessage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Copyright 2016 - Aaron Stewart
@@ -33,19 +39,19 @@ public class MessageRendererImpl implements MessageRenderer
         // run a test to validate lights work at boot
         String alpha = "abcdefghijklmnopqrstuvwxyz";
 
-        char[] alphaArray = alpha.toCharArray();
-        for (char c : alphaArray) {
-            renderTarget.setOn(c);
-            sleeper.doSleep(100);
-            renderTarget.setAllOff();
-        }
-        for (int i = alphaArray.length; i > 0; i--) {
-
-            char c = alphaArray[i-1];
-            renderTarget.setOn(c);
-            sleeper.doSleep(100);
-            renderTarget.setAllOff();
-        }
+//        List<Character> alphaList = alpha.chars().mapToObj(c -> (char)c).collect(Collectors.toList());
+//        for (char c : alphaList) {
+//            renderTarget.setOn(c);
+//            sleeper.doSleep(100);
+//            renderTarget.setAllOff();
+//        }
+//        List<Character> revAlpha = Lists.reverse(alphaList);
+//        for (char c : revAlpha) {
+//            renderTarget.setOn(c);
+//            sleeper.doSleep(100);
+//            renderTarget.setAllOff();
+//        }
+//        renderTarget.setAllOff();
     }
 
     @Override public void render(STMessage messageSource)

@@ -41,9 +41,9 @@ public class I2CRenderTargetTest
 
                 // character clear
                 exactly(2).of(mockI2cDevice).write(0x00, (byte)0x00);
-                exactly(2).of(mockI2cDevice).write(0x01, (byte)0x00);
                 exactly(2).of(mockI2cDevice).write(0x02, (byte)0x00);
                 exactly(2).of(mockI2cDevice).write(0x04, (byte)0x00);
+                exactly(2).of(mockI2cDevice).write(0x08, (byte)0x00);
             }
         });
         i2CRenderTarget.setI2CDeviceFactory(mockDeviceFactory);

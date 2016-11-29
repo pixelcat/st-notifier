@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface STMessageRepository extends MongoRepository<STMessage, ObjectId>
 {
-    STMessage findFirstByDisplayedOrderByReceivedDateDesc(Boolean isDisplayed);
+    STMessage findFirstByDisplayedAndBlockedOrderByReceivedDateDesc(Boolean isDisplayed, Boolean isBlocked);
 
-    List<STMessage> findByDisplayedOrderByReceivedDateDesc(Boolean isDisplayed, Pageable pageable);
+    List<STMessage> findByDisplayedOrderByStickyToTopDescReceivedDateDesc(Boolean isDisplayed, Pageable pageable);
 }

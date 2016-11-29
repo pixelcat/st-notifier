@@ -20,7 +20,7 @@ public class STMessage
 {
     @Id
     @JsonSerialize(using = ToStringSerializer.class)
-    private ObjectId id;
+    private String id;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
@@ -56,14 +56,16 @@ public class STMessage
     private String accountSid;
     private String from;
     private String apiVersion;
+    private boolean stickyToTop;
+    private boolean blocked;
 
 
-    public ObjectId getId()
+    public String getId()
     {
         return id;
     }
 
-    public void setId(ObjectId id)
+    public void setId(String id)
     {
         this.id = id;
     }
@@ -296,5 +298,25 @@ public class STMessage
     public void setApiVersion(String apiVersion)
     {
         this.apiVersion = apiVersion;
+    }
+
+    public boolean isStickyToTop()
+    {
+        return stickyToTop;
+    }
+
+    public void setStickyToTop(boolean stickyToTop)
+    {
+        this.stickyToTop = stickyToTop;
+    }
+
+    public boolean isBlocked()
+    {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked)
+    {
+        this.blocked = blocked;
     }
 }

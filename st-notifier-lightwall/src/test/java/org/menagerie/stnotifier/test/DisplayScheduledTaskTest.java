@@ -41,7 +41,7 @@ public class DisplayScheduledTaskTest
         mockery.checking(new Expectations()
         {
             {
-                oneOf(stMessageRepository).findFirstByDisplayedOrderByReceivedDateDesc(false);
+                oneOf(stMessageRepository).findFirstByDisplayedAndBlockedOrderByReceivedDateDesc(false, false);
                 will(returnValue(testMessage));
 
                 oneOf(testMessageRenderer).render(testMessage);
