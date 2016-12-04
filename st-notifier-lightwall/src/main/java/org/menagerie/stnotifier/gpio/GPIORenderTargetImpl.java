@@ -68,19 +68,19 @@ public class GPIORenderTargetImpl implements RenderTarget
     {
         controller = gpioControllerFactory.getController();
 
-        gpioPorts.put("COM0", controller.provisionDigitalOutputPin(RaspiPin.GPIO_04, "COM0", PinState.LOW));
-        gpioPorts.put("COM1", controller.provisionDigitalOutputPin(RaspiPin.GPIO_17, "COM1", PinState.LOW));
-        gpioPorts.put("COM2", controller.provisionDigitalOutputPin(RaspiPin.GPIO_27, "COM2", PinState.LOW));
-        gpioPorts.put("COM3", controller.provisionDigitalOutputPin(RaspiPin.GPIO_22, "COM3", PinState.LOW));
+        gpioPorts.put("COM0", controller.provisionDigitalOutputPin(RaspiPin.GPIO_07, "COM0", PinState.HIGH));
+        gpioPorts.put("COM1", controller.provisionDigitalOutputPin(RaspiPin.GPIO_00, "COM1", PinState.HIGH));
+        gpioPorts.put("COM2", controller.provisionDigitalOutputPin(RaspiPin.GPIO_02, "COM2", PinState.HIGH));
+        gpioPorts.put("COM3", controller.provisionDigitalOutputPin(RaspiPin.GPIO_03, "COM3", PinState.HIGH));
 
-        gpioPorts.put("A0", controller.provisionDigitalOutputPin(RaspiPin.GPIO_14, "A0", PinState.LOW));
-        gpioPorts.put("A1", controller.provisionDigitalOutputPin(RaspiPin.GPIO_15, "A1", PinState.LOW));
-        gpioPorts.put("A2", controller.provisionDigitalOutputPin(RaspiPin.GPIO_18, "A2", PinState.LOW));
-        gpioPorts.put("A3", controller.provisionDigitalOutputPin(RaspiPin.GPIO_23, "A3", PinState.LOW));
-        gpioPorts.put("A4", controller.provisionDigitalOutputPin(RaspiPin.GPIO_24, "A4", PinState.LOW));
-        gpioPorts.put("A5", controller.provisionDigitalOutputPin(RaspiPin.GPIO_25, "A5", PinState.LOW));
-        gpioPorts.put("A6", controller.provisionDigitalOutputPin(RaspiPin.GPIO_08, "A6", PinState.LOW));
-        gpioPorts.put("A7", controller.provisionDigitalOutputPin(RaspiPin.GPIO_07, "A7", PinState.LOW));
+        gpioPorts.put("A0", controller.provisionDigitalOutputPin(RaspiPin.GPIO_15, "A0", PinState.LOW));
+        gpioPorts.put("A1", controller.provisionDigitalOutputPin(RaspiPin.GPIO_16, "A1", PinState.LOW));
+        gpioPorts.put("A2", controller.provisionDigitalOutputPin(RaspiPin.GPIO_01, "A2", PinState.LOW));
+        gpioPorts.put("A3", controller.provisionDigitalOutputPin(RaspiPin.GPIO_04, "A3", PinState.LOW));
+        gpioPorts.put("A4", controller.provisionDigitalOutputPin(RaspiPin.GPIO_05, "A4", PinState.LOW));
+        gpioPorts.put("A5", controller.provisionDigitalOutputPin(RaspiPin.GPIO_06, "A5", PinState.LOW));
+        gpioPorts.put("A6", controller.provisionDigitalOutputPin(RaspiPin.GPIO_10, "A6", PinState.LOW));
+        gpioPorts.put("A7", controller.provisionDigitalOutputPin(RaspiPin.GPIO_11, "A7", PinState.LOW));
 
         signals.put('a', new String[]{"COM0", "A0"});
         signals.put('b', new String[]{"COM0", "A1"});
