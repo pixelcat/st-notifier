@@ -9,7 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Copyright 2016 - Aaron Stewart
@@ -57,14 +59,8 @@ public class GPIORenderTargetImpl implements RenderTarget
     {
         Set<Map.Entry<String, GpioPinDigitalOutput>> entries = gpioPorts.entrySet();
         for (Map.Entry<String, GpioPinDigitalOutput> entry : entries) {
-            String name = entry.getKey();
             GpioPinDigitalOutput port = entry.getValue();
-            if (name.startsWith("COM")) {
-                port.high();
-            } else {
-                port.low();
-            }
-
+            port.low();
         }
     }
 
@@ -72,10 +68,10 @@ public class GPIORenderTargetImpl implements RenderTarget
     {
         controller = gpioControllerFactory.getController();
 
-        gpioPorts.put("COM0", controller.provisionDigitalOutputPin(RaspiPin.GPIO_04, "COM0", PinState.HIGH));
-        gpioPorts.put("COM1", controller.provisionDigitalOutputPin(RaspiPin.GPIO_17, "COM1", PinState.HIGH));
-        gpioPorts.put("COM2", controller.provisionDigitalOutputPin(RaspiPin.GPIO_27, "COM2", PinState.HIGH));
-        gpioPorts.put("COM3", controller.provisionDigitalOutputPin(RaspiPin.GPIO_22, "COM3", PinState.HIGH));
+        gpioPorts.put("COM0", controller.provisionDigitalOutputPin(RaspiPin.GPIO_04, "COM0", PinState.LOW));
+        gpioPorts.put("COM1", controller.provisionDigitalOutputPin(RaspiPin.GPIO_17, "COM1", PinState.LOW));
+        gpioPorts.put("COM2", controller.provisionDigitalOutputPin(RaspiPin.GPIO_27, "COM2", PinState.LOW));
+        gpioPorts.put("COM3", controller.provisionDigitalOutputPin(RaspiPin.GPIO_22, "COM3", PinState.LOW));
 
         gpioPorts.put("A0", controller.provisionDigitalOutputPin(RaspiPin.GPIO_14, "A0", PinState.LOW));
         gpioPorts.put("A1", controller.provisionDigitalOutputPin(RaspiPin.GPIO_15, "A1", PinState.LOW));
