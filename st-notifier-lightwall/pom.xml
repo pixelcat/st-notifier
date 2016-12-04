@@ -76,9 +76,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmArguments>
-                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
-                    </jvmArguments>
+                    <!--<jvmArguments>-->
+                        <!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005-->
+                    <!--</jvmArguments>-->
                     <addResources>true</addResources>
                 </configuration>
             </plugin>
