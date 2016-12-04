@@ -5,6 +5,8 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
+import org.menagerie.stnotifier.config.STNotifierConfig;
+import org.menagerie.stnotifier.model.STConfig;
 import org.menagerie.stnotifier.model.STMessage;
 import org.menagerie.stnotifier.renderer.MessageRenderer;
 import org.menagerie.stnotifier.repository.STMessageRepository;
@@ -38,6 +40,9 @@ public class DisplayScheduledTaskTest
         Fairy fairy = Fairy.create();
         testMessage.setBody(fairy.textProducer().sentence(3));
 
+        STNotifierConfig stNotifierConfig = mockery.mock(STNotifierConfig.class);
+
+        task.setStNotifierConfig(stNotifierConfig);
         mockery.checking(new Expectations()
         {
             {
@@ -49,6 +54,9 @@ public class DisplayScheduledTaskTest
 
                 oneOf(stMessageRepository).save(testMessage);
                 will(returnValue(testMessage));
+
+                atLeast(1).of(stNotifierConfig).getConfig();
+                will(returnValue(new STConfig()));
             }
         });
         task.setMessageRenderer(testMessageRenderer);

@@ -1,20 +1,36 @@
 var stNotifierApp = angular.module('stnotifier', ['ngRoute'])
-    .controller('TabController', ['$scope', function ($scope) {
+    .controller('TabController', ['$scope', '$location', function ($scope, $location) {
       $scope.tabs = [
         {
           title: 'Messages',
-          url: 'messages.html'
+          url: 'messages.html',
+          fragment: '/messages'
         },
         {
           title: 'Config',
-          url: 'config.html'
+          url: 'config.html',
+          fragment: '/config'
         }
       ];
-      $scope.currentTab = 'messages.html';
+
+      var defaultSelected = false;
+      for (var i in $scope.tabs) {
+        if ($scope.tabs.hasOwnProperty(i)) {
+          if ($scope.tabs[i].fragment == $location.hash()) {
+            $scope.currentTab = $scope.tabs[i].url;
+            defaultSelected = true;
+            break;
+          }
+        }
+      }
+      if (!defaultSelected) {
+        $scope.currentTab = 'messages.html';
+      }
 
       $scope.onClickTab = function (tab) {
         $scope.currentTab = tab.url;
-      }
+        $location.path(tab.fragment);
+      };
 
       $scope.isActiveTab = function (tabUrl) {
         return tabUrl == $scope.currentTab;

@@ -15,13 +15,12 @@ import org.menagerie.stnotifier.renderer.Sleeper;
 import org.menagerie.stnotifier.renderer.SleeperImpl;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.*;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /**
  * Copyright 2016 - Aaron Stewart
@@ -64,12 +63,13 @@ public class STNotifierApplication
         return new SwingRenderTarget();
     }
 
-    @Bean SwingTerminalBean swingTerminalBean() {
+    @Bean SwingTerminalBean swingTerminalBean()
+    {
         return new SwingTerminalBeanImpl();
     }
 
     @Bean(initMethod = "init")
-        MessageRenderer messageRenderer()
+    MessageRenderer messageRenderer()
     {
         return new MessageRendererImpl();
     }

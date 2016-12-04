@@ -3,6 +3,8 @@ package org.menagerie.stnotifier.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 /**
  * Copyright 2016 - Aaron Stewart
  * Date: 11/13/16, 3:18 PM
@@ -20,6 +22,7 @@ public class STConfig
     private int waitEnd;
     private int waitStart;
     private boolean paused = false;
+    private int rateLimit;
 
     public ObjectId getId()
     {
@@ -110,4 +113,15 @@ public class STConfig
     {
         this.paused = paused;
     }
+
+    public int getRateLimit()
+    {
+        return rateLimit;
+    }
+
+    public void setRateLimit(int rateLimit)
+    {
+        this.rateLimit = rateLimit;
+    }
+
 }

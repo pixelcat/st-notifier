@@ -25,7 +25,6 @@ import java.util.List;
  * Copyright 2016 - Aaron Stewart
  * Date: 10/19/16, 9:53 PM
  */
-@Component
 public class SpringYoutubeFacadeImpl implements SpringYoutubeFacade
 {
     private static final Logger log = LoggerFactory.getLogger(SpringYoutubeFacadeImpl.class);

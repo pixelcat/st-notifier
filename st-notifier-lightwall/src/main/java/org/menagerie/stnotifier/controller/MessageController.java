@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,25 @@ public class MessageController
 
     private STMessageRepository stMessageRepository;
     private STNotifierConfig stNotifierConfig;
+    private MongoTemplate mongoTemplate;
+
+    @Autowired
+    public void setStMessageRepository(STMessageRepository stMessageRepository)
+    {
+        this.stMessageRepository = stMessageRepository;
+    }
+
+    @Autowired
+    public void setStNotifierConfig(STNotifierConfig stNotifierConfig)
+    {
+        this.stNotifierConfig = stNotifierConfig;
+    }
+
+    @Autowired
+    public void setMongoTemplate(MongoTemplate mongoTemplate)
+    {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     @RequestMapping(path = "/message/displayed", method = RequestMethod.GET)
     @ResponseBody
@@ -82,6 +102,9 @@ public class MessageController
             @RequestParam(value = "ToZip", required = false) String toZip)
     {
 
+        // TODO: Do validations
+        //
+
         log.info("received message");
         STMessage message = new STMessage();
         message.setAccountSid(accountSid);
@@ -116,22 +139,10 @@ public class MessageController
         return new TwilioResponse("Your message from the Upside Down has been received.");
     }
 
-    @Autowired
-    public void setStMessageRepository(STMessageRepository stMessageRepository)
-    {
-        this.stMessageRepository = stMessageRepository;
-    }
-
-    @Autowired
-    public void setStNotifierConfig(STNotifierConfig stNotifierConfig)
-    {
-        this.stNotifierConfig = stNotifierConfig;
-    }
-
-
     @RequestMapping(path = "/message/block/{messageId}", method = RequestMethod.GET)
     @ResponseBody
-    public String blockMessage(@PathVariable String messageId) {
+    public String blockMessage(@PathVariable String messageId)
+    {
         STMessage message = stMessageRepository.findOne(new ObjectId(messageId));
         message.setBlocked(true);
         stMessageRepository.save(message);
@@ -140,7 +151,8 @@ public class MessageController
 
     @RequestMapping(path = "/message/unblock/{messageId}", method = RequestMethod.GET)
     @ResponseBody
-    public String unBlockMessage(@PathVariable String messageId) {
+    public String unBlockMessage(@PathVariable String messageId)
+    {
         STMessage message = stMessageRepository.findOne(new ObjectId(messageId));
         message.setBlocked(false);
         stMessageRepository.save(message);
@@ -174,7 +186,8 @@ public class MessageController
 
     @RequestMapping(path = "/st-listener")
     @ResponseBody
-    public String getPausedStatus() {
+    public String getPausedStatus()
+    {
         STConfig config = stNotifierConfig.getConfig();
         return String.valueOf(config.isPaused());
     }

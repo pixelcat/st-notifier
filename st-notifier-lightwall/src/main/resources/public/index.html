@@ -30,13 +30,13 @@
 <body ng-app="stnotifier" ng-controller="TabController">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container" ng-cloak class="ng-cloak">
+    <div ng-cloak class="container ng-cloak">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
             </button>
-            <a class="navbar-brand" href="/">Stranger Things:</a>
+            <a class="navbar-brand" href="/"><img src="/img/artwall-logo-small.png"/></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -57,10 +57,16 @@
 <script type="text/ng-template" id="messages.html">
     <h1>ST Notifier Messages</h1>
     <h2>Upcoming Messages</h2>
-    <div class="message-container" ng-controller="UpcomingMessageController" ng-cloak class="ng-cloak">
+    <div ng-controller="UpcomingMessageController" ng-cloak class="message-container ng-cloak">
         <div ng-switch="paused">
-            <div ng-switch-when="true"><a ng-click="resumeMessages()">Resume Message Processing</a></div>
-            <div ng-switch-default><a ng-click="pauseMessages()">Pause Message Processing</a></div>
+            <div ng-switch-when="true">
+                <button type="button" class="btn btn-warning" ng-click="resumeMessages()">Resume Message Processing
+                </button>
+            </div>
+            <div ng-switch-default>
+                <button type="button" ng-click="pauseMessages()" class="btn btn-success">Pause Message Processing
+                </button>
+            </div>
         </div>
         <div class="container container-table">
             <div class="message row" ng-repeat="message in messages">
@@ -81,7 +87,8 @@
                                 ng-click="markSticky(message)">
                             Move to Top
                         </button>
-                        <button type="button" ng-if="message.stickyToTop" rel="{{message.id}}" class="btn btn-info" ng-click="unmarkSticky(message)">Undo
+                        <button type="button" ng-if="message.stickyToTop" rel="{{message.id}}" class="btn btn-info"
+                                ng-click="unmarkSticky(message)">Undo
                             Move to Top
                         </button>
                     </div>
@@ -117,28 +124,34 @@
         <h1>Configuration</h1>
         <p>(all times are in milliseconds)</p>
         <form novalidate class="config-form">
-            <div class="form-item"><label>Quiet time between messages: <input type="text"
-                                                                              ng-model="config.waitBetweenMessages"></label>
+            <div class="form-group"><label>Quiet time between messages:</label>
+                <input type="text" class="form-control" ng-model="config.waitBetweenMessages"/>
             </div>
-            <div class="form-item"><label>Time to leave light on: <input type="text"
-                                                                         ng-model="config.onTime"/></label>
+            <div class="form-group">
+                <label>Time to leave light on:</label>
+                <input type="text" class="form-control" ng-model="config.onTime"/>
             </div>
-            <div class="form-item"><label>Delay in between light pulses: <input type="text"
-                                                                                ng-model="config.offTime"/></label>
+            <div class="form-group">
+                <label>Delay in between light pulses:</label>
+                <input type="text" class="form-control" ng-model="config.offTime"/>
             </div>
-            <div class="form-item"><label>Time to wait when a space is hit: <input type="text"
-                                                                                   ng-model="config.waitSpace"/></label>
+            <div class="form-group">
+                <label>Time to wait when a space is hit:</label>
+                <input type="text" class="form-control" ng-model="config.waitSpace"/>
             </div>
-            <div class="form-item"><label>Time to wait after a message is complete (with camera on):
-                <input type="text"
-                       ng-model="config.waitEnd"/></label></div>
-            <div class="form-item"><label>Time to wait before a message starts (with camera on):
-                <input type="text"
-                       ng-model="config.waitStart"/></label></div>
-            <div class="form-item">
+            <div class="form-group">
+                <label>Time to wait after a message is complete (with camera on):
+                </label>
+                <input type="text" class="form-control" ng-model="config.waitEnd"/>
+            </div>
+            <div class="form-group">
+                <label>Time to wait before a message starts (with camera on):
+                </label>
+                <input type="text" class="form-control" ng-model="config.waitStart"/>
+            </div>
+
+            <div class="btn-group" role="group">
                 <button type="button" class="btn btn-secondary" ng-click="reset()">Reset</button>
-            </div>
-            <div class="form-item">
                 <button type="button" class="btn btn-primary" ng-click="update(config)">Save Configuration</button>
             </div>
         </form>
