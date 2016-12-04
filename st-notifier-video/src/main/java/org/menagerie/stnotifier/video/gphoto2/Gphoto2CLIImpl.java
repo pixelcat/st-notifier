@@ -2,6 +2,7 @@ package org.menagerie.stnotifier.video.gphoto2;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,18 +16,23 @@ public class Gphoto2CLIImpl implements Gphoto2CLI
 {
     private static final Logger log = LoggerFactory.getLogger(Gphoto2CLIImpl.class);
 
+    @Value("${menagerie.video.camera}")
+    private String cameraType;
+
     @Override public void captureMovie(long time, String filePath)
     {
         String gphotoPath;
         try {
             gphotoPath = exec("which gphoto2").replace("\n$", "");
 
-            String sb = gphotoPath + " " +
-                        "--set-config movie=1 --wait-event=" +
-                        time / 1000 +
-                        "s --set-config movie=0 --wait-event-and-download=2s --force-overwrite --filename=" + filePath;
+            StringBuilder sb = new StringBuilder();
+            sb.append(gphotoPath);
+            if ("Nikon-D7100".equals(cameraType)) {
+                sb.append(" --list-files");
+            }
+            sb.append(" --set-config movie=1 --wait-event=").append(time / 1000).append("s --set-config movie=0 --wait-event-and-download=2s --force-overwrite --filename=").append(filePath);
 
-            String output = exec(sb);
+            String output = exec(sb.toString());
             log.info("Output from command:\n" + output);
 
         } catch (IOException | InterruptedException e) {

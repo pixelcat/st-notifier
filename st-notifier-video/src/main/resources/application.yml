@@ -9,6 +9,9 @@ twilio:
   account:
     sid: ACcfac9b8e682bc0574fdf46d2abc5997b
     authToken: 065cc25e253e8ba0efb358afdddae73b
+menagerie:
+  video:
+    camera: Nikon-D7100
 server:
   port: 8085
 spring:

@@ -19,6 +19,11 @@
       "name": "twilio.account.authToken",
       "type": "java.lang.String",
       "description": "Description for twilio.account.authToken."
+    },
+    {
+      "name": "menagerie.video.camera",
+      "type": "java.lang.String",
+      "description": "Description for menagerie.video.camera."
     }
   ]
 }
