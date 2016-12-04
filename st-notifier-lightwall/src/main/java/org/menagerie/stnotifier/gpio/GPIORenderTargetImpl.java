@@ -60,7 +60,12 @@ public class GPIORenderTargetImpl implements RenderTarget
         Set<Map.Entry<String, GpioPinDigitalOutput>> entries = gpioPorts.entrySet();
         for (Map.Entry<String, GpioPinDigitalOutput> entry : entries) {
             GpioPinDigitalOutput port = entry.getValue();
-            port.low();
+            if (entry.getKey().startsWith("COM")) {
+                port.high();
+            }
+            else {
+                port.low();
+            }
         }
     }
 
