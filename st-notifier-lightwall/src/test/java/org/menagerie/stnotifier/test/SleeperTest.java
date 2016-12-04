@@ -20,10 +20,10 @@ public class SleeperTest
         Sleeper sleeper = new SleeperImpl();
         long startTime = Calendar.getInstance().getTimeInMillis();
 
-        sleeper.doSleep(1000);
+        sleeper.doSleep(300);
         long endTime = Calendar.getInstance().getTimeInMillis();
 
-        assertTrue(endTime > startTime + 1000);
+        assertTrue(endTime > startTime + 300);
 
     }
 }

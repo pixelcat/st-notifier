@@ -22,28 +22,34 @@ public class I2CRenderTargetTest
     public void testRender() throws IOException
     {
         I2CRenderTargetImpl i2CRenderTarget = new I2CRenderTargetImpl();
-        i2CRenderTarget.setI2cAddress(0x13);
+        i2CRenderTarget.setI2cAddress("0x70,0x71");
         I2CDeviceFactory mockDeviceFactory = mockery.mock(I2CDeviceFactory.class);
         I2CDevice mockI2cDevice = mockery.mock(I2CDevice.class);
-
+        I2CDevice mockI2cDevice2 = mockery.mock(I2CDevice.class, "mockI2cDevice2");
         mockery.checking(new Expectations()
         {
             {
-                exactly(1).of(mockDeviceFactory).getDevice(0x13);
+                exactly(1).of(mockDeviceFactory).getDevice(0x70);
                 will(returnValue(mockI2cDevice));
 
+                exactly(1).of(mockDeviceFactory).getDevice(0x71);
+                will(returnValue(mockI2cDevice2));
                 // assert that initialization took place
                 oneOf(mockI2cDevice).write(new byte[]{0x21});
+                oneOf(mockI2cDevice2).write(new byte[]{0x21});
                 oneOf(mockI2cDevice).write(new byte[]{(byte)0x81});
+                oneOf(mockI2cDevice2).write(new byte[]{(byte)0x81});
                 oneOf(mockI2cDevice).write(new byte[]{(byte)0xef});
-                // character write
-                oneOf(mockI2cDevice).write(0x00, (byte)0x20);
+                oneOf(mockI2cDevice2).write(new byte[]{(byte)0xef});
 
-                // character clear
-                exactly(2).of(mockI2cDevice).write(0x00, (byte)0x00);
-                exactly(2).of(mockI2cDevice).write(0x02, (byte)0x00);
-                exactly(2).of(mockI2cDevice).write(0x04, (byte)0x00);
-                exactly(2).of(mockI2cDevice).write(0x08, (byte)0x00);
+                // character write
+                oneOf(mockI2cDevice).write(0x05, new byte[]{0x01});
+
+                for (int i = 0; i < 16; i++) {
+                    exactly(2).of(mockI2cDevice).write(i, new byte[]{0x00});
+                    exactly(2).of(mockI2cDevice2).write(i, new byte[]{0x00});
+                }
+
             }
         });
         i2CRenderTarget.setI2CDeviceFactory(mockDeviceFactory);

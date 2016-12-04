@@ -17,3 +17,12 @@ spring:
       bindings:
         input:
           destination: stnotifier
+          binder: rabbit1
+      binders:
+        rabbit1:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: 1.tcp.ngrok.io
+                port: 29179
