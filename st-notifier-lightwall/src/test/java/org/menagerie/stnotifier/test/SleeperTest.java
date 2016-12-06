@@ -23,7 +23,7 @@ public class SleeperTest
         sleeper.doSleep(1000);
         long endTime = Calendar.getInstance().getTimeInMillis();
 
-        assertTrue(endTime > startTime + 1000);
+        assertTrue(endTime > startTime + 800);
 
     }
 }
