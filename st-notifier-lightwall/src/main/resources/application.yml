@@ -20,6 +20,8 @@ menagerie:
     ht16k33:
       address: 0x70
 spring:
+  profiles:
+    active: default,gpio
   cloud:
     stream:
       bindings:
