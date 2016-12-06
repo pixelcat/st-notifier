@@ -16,7 +16,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.util.concurrent.Executor;
 
 /**
  * Copyright 2016 - Aaron Stewart
@@ -24,7 +28,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @SpringBootApplication
 @EnableAsync
-public class STVideoApplication
+public class STVideoApplication extends AsyncConfigurerSupport
 {
     private static Logger log = LoggerFactory.getLogger(STVideoApplication.class);
 
@@ -74,5 +78,16 @@ public class STVideoApplication
     @Bean
     JsonFactory jsonFactory() {
       return new JacksonFactory();
+    }
+
+    @Override
+    public Executor getAsyncExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(2);
+        executor.setMaxPoolSize(2);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("YoutubeUploader-");
+        executor.initialize();
+        return executor;
     }
 }
