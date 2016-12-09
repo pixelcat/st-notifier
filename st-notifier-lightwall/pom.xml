@@ -80,6 +80,7 @@
                         <!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005-->
                     <!--</jvmArguments>-->
                     <executable>true</executable>
+                    <mode>service</mode>
                     <addResources>true</addResources>
                 </configuration>
             </plugin>
