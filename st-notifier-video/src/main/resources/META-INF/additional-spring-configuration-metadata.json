@@ -24,6 +24,11 @@
       "name": "menagerie.video.camera",
       "type": "java.lang.String",
       "description": "Description for menagerie.video.camera."
+    },
+    {
+      "name": "twilio.account.authKey",
+      "type": "java.lang.String",
+      "description": "Description for twilio.account.authKey."
     }
   ]
 }

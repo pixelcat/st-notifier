@@ -1,0 +1,19 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: stnotifier
+          binder: rabbit1
+      binders:
+        rabbit1:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672

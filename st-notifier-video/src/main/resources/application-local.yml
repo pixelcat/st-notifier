@@ -1,0 +1,24 @@
+twilio:
+  account:
+    sid: ACcfac9b8e682bc0574fdf46d2abc5997b
+    authKey: SK587ef218d310715545098c10e8d885d8
+    authToken: 8DXrPQpwA4HslnNix1ct7WFUKbNx3HVt
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: stnotifier
+          binder: rabbit1
+      binders:
+        rabbit1:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672

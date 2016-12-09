@@ -26,6 +26,8 @@ spring:
     stream:
       bindings:
         output:
+          consumer:
+            maxAttempts: 1
           destination: stnotifier
           binder: rabbit1
       binders:

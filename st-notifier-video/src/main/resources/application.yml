@@ -8,13 +8,16 @@ logging.level:
 twilio:
   account:
     sid: ACcfac9b8e682bc0574fdf46d2abc5997b
-    authToken: 065cc25e253e8ba0efb358afdddae73b
+    authKey: SK587ef218d310715545098c10e8d885d8
+    authToken: 8DXrPQpwA4HslnNix1ct7WFUKbNx3HVt
 menagerie:
   video:
     camera: Nikon-D7100
 server:
   port: 8085
 spring:
+  profiles:
+    active: default,gpio,camera
   data:
     mongodb:
       host: 1.tcp.ngrok.io
@@ -23,6 +26,8 @@ spring:
     stream:
       bindings:
         input:
+          consumer:
+            maxAttempts: 1
           destination: stnotifier
           binder: rabbit1
       binders:

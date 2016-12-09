@@ -28,7 +28,7 @@
                 <version>1.4.1.RELEASE</version>
                 <configuration>
                     <!--<jvmArguments>-->
-                        <!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005-->
+                         <!-- -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005-->
                     <!--</jvmArguments>-->
                 </configuration>
             </plugin>
@@ -111,6 +111,11 @@
             <artifactId>jmock</artifactId>
             <version>2.4.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.2</version>
         </dependency>
     </dependencies>
 </project>
