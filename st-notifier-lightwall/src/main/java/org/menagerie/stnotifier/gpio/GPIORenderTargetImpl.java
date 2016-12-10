@@ -106,14 +106,13 @@ public class GPIORenderTargetImpl implements RenderTarget
         signals.put('n', new String[]{"COM1", "A5"});
 
         signals.put('o', new String[]{"COM2", "A7"});
-        signals.put('t', new String[]{"COM3", "A0"});
+        signals.put('p', new String[]{"COM3", "A0"});
 
         signals.put('q', new String[]{"COM3", "A1"});
         signals.put('r', new String[]{"COM2", "A1"});
         signals.put('s', new String[]{"COM2", "A3"});
 
-
-        signals.put('p', new String[]{"COM1", "A7"});
+        signals.put('t', new String[]{"COM1", "A7"});
 
         signals.put('u', new String[]{"COM2", "A4"});
         signals.put('v', new String[]{"COM2", "A5"});
