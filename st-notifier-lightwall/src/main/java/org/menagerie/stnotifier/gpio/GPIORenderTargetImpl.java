@@ -91,25 +91,32 @@ public class GPIORenderTargetImpl implements RenderTarget
         signals.put('b', new String[]{"COM0", "A1"});
         signals.put('c', new String[]{"COM0", "A2"});
         signals.put('d', new String[]{"COM0", "A3"});
+
         signals.put('e', new String[]{"COM1", "A4"});
+        signals.put('f', new String[]{"COM1", "A5"});
         signals.put('g', new String[]{"COM1", "A6"});
+        signals.put('h', new String[]{"COM1", "A7"});
+
         signals.put('i', new String[]{"COM1", "A0"});
         signals.put('j', new String[]{"COM1", "A1"});
         signals.put('k', new String[]{"COM1", "A2"});
         signals.put('l', new String[]{"COM1", "A3"});
-        signals.put('n', new String[]{"COM1", "A5"});
-        signals.put('p', new String[]{"COM1", "A7"});
+
         signals.put('m', new String[]{"COM2", "A0"});
-        signals.put('n', new String[]{"COM2", "A6"});
+        signals.put('n', new String[]{"COM1", "A5"});
+
         signals.put('o', new String[]{"COM2", "A7"});
-        signals.put('p', new String[]{"COM3", "A0"});
+        signals.put('p', new String[]{"COM1", "A7"});
         signals.put('q', new String[]{"COM3", "A1"});
         signals.put('r', new String[]{"COM2", "A1"});
         signals.put('s', new String[]{"COM2", "A3"});
+
+        signals.put('t', new String[]{"COM3", "A0"});
+
         signals.put('u', new String[]{"COM2", "A4"});
         signals.put('v', new String[]{"COM2", "A5"});
-        signals.put('w', new String[]{"COM0", "A6"});
-        signals.put('x', new String[]{"COM0", "A5"});
+        signals.put('w', new String[]{"COM0", "A5"});
+        signals.put('x', new String[]{"COM0", "A6"});
         signals.put('y', new String[]{"COM0", "A4"});
         signals.put('z', new String[]{"COM0", "A7"});
 
