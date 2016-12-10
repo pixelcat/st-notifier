@@ -103,7 +103,7 @@ public class GPIORenderTargetImpl implements RenderTarget
         signals.put('l', new String[]{"COM1", "A3"});
 
         signals.put('m', new String[]{"COM2", "A0"});
-        signals.put('n', new String[]{"COM1", "A5"});
+        signals.put('n', new String[]{"COM2", "A6"}); // wrong?
 
         signals.put('o', new String[]{"COM2", "A7"});
         signals.put('p', new String[]{"COM3", "A0"});
@@ -112,7 +112,7 @@ public class GPIORenderTargetImpl implements RenderTarget
         signals.put('r', new String[]{"COM2", "A1"});
         signals.put('s', new String[]{"COM2", "A3"});
 
-        signals.put('t', new String[]{"COM1", "A7"});
+        signals.put('t', new String[]{"COM2", "A2"});
 
         signals.put('u', new String[]{"COM2", "A4"});
         signals.put('v', new String[]{"COM2", "A5"});
