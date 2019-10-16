@@ -52,15 +52,25 @@ public class STVideoApplication extends AsyncConfigurerSupport
     }
 
     @Bean
-    OAuth2Adapter oAuth2Adapter()
+    OAuth2Adapter insteonOAuth2Adapter()
     {
-        return new OAuth2Adapter();
+        return new OAuth2Adapter(pluggableInsteonVerificationCodeReceiver());
     }
 
     @Bean
-    PluggableVerificationCodeReceiver springControllerVerificationCodeReceiver()
+    OAuth2Adapter nestOAuth2Adapter() {
+        return new OAuth2Adapter(pluggableNestVerificationCodeReceiver());
+    }
+
+    @Bean
+    PluggableVerificationCodeReceiver pluggableInsteonVerificationCodeReceiver()
     {
-        return new PluggableVerificationCodeReceiverImpl();
+        return new PluggableVerificationCodeReceiverImpl("insteon");
+    }
+
+    @Bean
+    PluggableVerificationCodeReceiver pluggableNestVerificationCodeReceiver() {
+        return new PluggableVerificationCodeReceiverImpl("nest");
     }
 
     @Bean(initMethod = "init")

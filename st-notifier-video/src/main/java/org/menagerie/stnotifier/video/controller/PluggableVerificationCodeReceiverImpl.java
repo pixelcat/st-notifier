@@ -15,16 +15,18 @@ public class PluggableVerificationCodeReceiverImpl implements PluggableVerificat
     private final Condition gotAuthorizationResponse;
     private volatile String code;
     private volatile String error;
+    private final String classifier;
 
-    public PluggableVerificationCodeReceiverImpl()
+    public PluggableVerificationCodeReceiverImpl(String classifier)
     {
         this.lock = new ReentrantLock();
         this.gotAuthorizationResponse = this.lock.newCondition();
+        this.classifier = classifier;
     }
 
     @Override public String getRedirectUri() throws IOException
     {
-        return "http://localhost:8080/callback";
+        return "http://localhost:8080/callback/" + classifier;
     }
 
     @Override public String waitForCode() throws IOException

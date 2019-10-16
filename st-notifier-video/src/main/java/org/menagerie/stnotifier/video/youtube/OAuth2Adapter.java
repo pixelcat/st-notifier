@@ -26,6 +26,12 @@ import java.util.List;
  */
 public class OAuth2Adapter
 {
+    public OAuth2Adapter(PluggableVerificationCodeReceiver pluggableVerificationCodeReceiver, String classifier)
+    {
+        this.pluggableVerificationCodeReceiver = pluggableVerificationCodeReceiver;
+        this.classifier = classifier;
+    }
+
     /**
      * This is the directory that will be used under the user's home directory where OAuth tokens will be stored.
      */
@@ -40,6 +46,7 @@ public class OAuth2Adapter
      */
     private final JsonFactory jsonFactory = new JacksonFactory();
     private PluggableVerificationCodeReceiver pluggableVerificationCodeReceiver;
+    private String classifier;
 
     /**
      * Authorizes the installed application to access user's protected data.
@@ -52,7 +59,7 @@ public class OAuth2Adapter
     {
 
         // Load client secrets.
-        Reader clientSecretReader = new InputStreamReader(OAuth2Adapter.class.getResourceAsStream("/client_secrets.json"));
+        Reader clientSecretReader = new InputStreamReader(OAuth2Adapter.class.getResourceAsStream("/" + classifier + "-nest_client_secrets.json"));
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, clientSecretReader);
 
         // Checks that the defaults have been replaced (Default = "Enter X here").
@@ -60,7 +67,7 @@ public class OAuth2Adapter
             || clientSecrets.getDetails().getClientSecret().startsWith("Enter ")) {
             System.out.println(
                     "Enter Client ID and Secret from https://console.developers.google.com/project/_/apiui/credential "
-                    + "into src/main/resources/client_secrets.json");
+                    + "into src/main/resources/nest_client_secrets.json");
             System.exit(1);
         }
 
@@ -74,11 +81,5 @@ public class OAuth2Adapter
 
         // Authorize.
         return new AuthorizationCodeInstalledApp(flow, pluggableVerificationCodeReceiver).authorize("user");
-    }
-
-    @Autowired
-    public void setPluggableVerificationCodeReceiver(PluggableVerificationCodeReceiver pluggableVerificationCodeReceiver)
-    {
-        this.pluggableVerificationCodeReceiver = pluggableVerificationCodeReceiver;
     }
 }

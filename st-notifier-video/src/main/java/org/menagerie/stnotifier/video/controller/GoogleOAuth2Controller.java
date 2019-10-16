@@ -2,6 +2,7 @@ package org.menagerie.stnotifier.video.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,10 +15,11 @@ import java.io.StringWriter;
 @Controller
 public class GoogleOAuth2Controller
 {
-    private PluggableVerificationCodeReceiver pluggableVerificationCodeReceiver;
+    private PluggableVerificationCodeReceiver pluggableNestVerificationCodeReceiver;
+    private PluggableVerificationCodeReceiver pluggableInsteonVerificationCodeReceiver;
 
-    @RequestMapping("/callback")
-    public String callback(@RequestParam("code") String code, @RequestParam("error") String error)
+    @RequestMapping("/callback/{classifier}")
+    public String callback(@RequestParam("code") String code, @RequestParam("error") String error, @PathVariable String classifier)
     {
         StringWriter doc = new StringWriter();
         doc.write("<html>");
@@ -26,20 +28,33 @@ public class GoogleOAuth2Controller
         doc.write("Received verification code. You may now close this window...");
         doc.write("</body>");
         doc.write("</HTML>");
-        pluggableVerificationCodeReceiver.getLock().lock();
+        PluggableVerificationCodeReceiver receiver;
+        if ("insteon".equals(classifier)) {
+            receiver = this.pluggableInsteonVerificationCodeReceiver;
+        }
+        else {
+            receiver = this.pluggableNestVerificationCodeReceiver;
+        }
+        receiver.getLock().lock();
 
         try {
-            pluggableVerificationCodeReceiver.setCode(code);
-            pluggableVerificationCodeReceiver.setError(error);
+            receiver.setCode(code);
+            receiver.setError(error);
         } finally {
-            pluggableVerificationCodeReceiver.getLock().unlock();
+            receiver.getLock().unlock();
         }
         return doc.toString();
     }
 
     @Autowired
-    public void setPluggableVerificationCodeReceiver(PluggableVerificationCodeReceiver pluggableVerificationCodeReceiver)
+    public void setPluggableNestVerificationCodeReceiver(PluggableVerificationCodeReceiver pluggableNestVerificationCodeReceiver)
     {
-        this.pluggableVerificationCodeReceiver = pluggableVerificationCodeReceiver;
+        this.pluggableNestVerificationCodeReceiver = pluggableNestVerificationCodeReceiver;
+    }
+
+    @Autowired
+    public void setPluggableInsteonVerificationCodeReceiver(PluggableVerificationCodeReceiver pluggableInsteonVerificationCodeReceiver)
+    {
+        this.pluggableInsteonVerificationCodeReceiver = pluggableInsteonVerificationCodeReceiver;
     }
 }
