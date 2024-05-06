@@ -12,7 +12,7 @@ import com.googlecode.lanterna.terminal.swing.SwingTerminalFrame;
 import java.io.IOException;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/21/16, 5:58 PM
  */
 public class SwingTerminalBeanImpl implements SwingTerminalBean

@@ -9,7 +9,7 @@ import java.util.Calendar;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/21/16, 7:39 PM
  */
 public class SleeperTest

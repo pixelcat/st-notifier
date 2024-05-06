@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 9/30/16, 10:02 PM
  */
 @Repository
-public interface STMessageRepository extends MongoRepository<STMessage, ObjectId>
+public interface STMessageRepository<T> extends MongoRepository<T, ObjectId>
 {
-    STMessage findFirstByDisplayedAndBlockedOrderByReceivedDateDesc(Boolean isDisplayed, Boolean isBlocked);
+    T findFirstByDisplayedAndBlockedOrderByReceivedDateDesc(Boolean isDisplayed, Boolean isBlocked);
 
-    List<STMessage> findByDisplayedOrderByStickyToTopDescReceivedDateDesc(Boolean isDisplayed, Pageable pageable);
+    List<T> findByDisplayedOrderByStickyToTopDescReceivedDateDesc(Boolean isDisplayed, Pageable pageable);
 }

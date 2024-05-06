@@ -12,7 +12,7 @@ import org.menagerie.stnotifier.gpio.GPIOControllerFactory;
 import org.menagerie.stnotifier.gpio.GPIORenderTargetImpl;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 12/4/16, 11:28 AM
  */
 public class GPIORenderTargetTest

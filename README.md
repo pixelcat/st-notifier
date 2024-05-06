@@ -25,8 +25,8 @@ Well, quite a few people:
 
 * Laura Anthony - The person who had the idea
 * Coday Anthony - Laura's Husband (and builder's assistant)
-* Aaron Stewart - The person who decided to make SMS work
-* Adam Stewart - Aaron's brother, and the geek behind the hardware
+* Kenzi Stewart - The person who decided to make SMS work
+* Adam Stewart - Kenzi's brother, and the geek behind the hardware
 
 ## What can you do with it?
 

@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/16/16, 5:15 PM
  */
 @RunWith(SpringRunner.class)
@@ -33,7 +33,6 @@ public class YoutubeUploaderTest
     public void setUp()
     {
         mockery = new Mockery();
-        mockery.setImposteriser(ClassImposteriser.INSTANCE);
     }
 
     @Test

@@ -6,7 +6,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/17/16, 11:21 PM
  */
 public class PluggableVerificationCodeReceiverImpl implements PluggableVerificationCodeReceiver

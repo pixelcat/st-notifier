@@ -12,7 +12,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/21/16, 6:30 PM
  */
 public class SwingTerminalBeanTest

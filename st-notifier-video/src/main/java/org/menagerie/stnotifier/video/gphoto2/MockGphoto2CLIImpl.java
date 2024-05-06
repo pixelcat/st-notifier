@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 12/9/16, 11:19 AM
  */
 public class MockGphoto2CLIImpl implements Gphoto2CLI

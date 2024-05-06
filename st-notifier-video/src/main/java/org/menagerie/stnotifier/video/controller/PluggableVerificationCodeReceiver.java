@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.concurrent.locks.Lock;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/18/16, 3:13 PM
  */
 public interface PluggableVerificationCodeReceiver extends VerificationCodeReceiver

@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.1.RELEASE</version>
+        <version>2.6.2</version>
     </parent>
     <modules>
         <module>st-notifier-model</module>
@@ -20,8 +20,7 @@
         <module>st-notifier-lightwall</module>
     </modules>
     <properties>
-        <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
-        <spring.version>4.3.4.RELEASE</spring.version>
+        <spring-boot.version>2.6.2</spring-boot.version>
     </properties>
     <dependencies>
         <dependency>
@@ -32,50 +31,47 @@
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock</artifactId>
-            <version>2.5.1</version>
+            <version>2.12.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.codearte.jfairy</groupId>
             <artifactId>jfairy</artifactId>
-            <version>0.5.0</version>
+            <version>0.5.9</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.8.2</version>
+            <version>2.10.13</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
-            <version>1.0.0.RELEASE</version>
+            <version>3.1.5</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>1.4.1.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>1.4.1.RELEASE</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-core</artifactId>
-            <version>${spring.version}</version>
+            <version>5.2.2.RELEASE</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -89,12 +85,12 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>19.0</version>
+                <version>29.0-jre</version>
             </dependency>
             <dependency>
                 <groupId>com.google.inject</groupId>
                 <artifactId>guice</artifactId>
-                <version>4.1.0</version>
+                <version>4.2.1</version>
             </dependency>
             <dependency>
                 <groupId>com.google.inject.extensions</groupId>
@@ -104,7 +100,7 @@
             <dependency>
                 <groupId>org.springframework.integration</groupId>
                 <artifactId>spring-integration-amqp</artifactId>
-                <version>${spring.version}</version>
+                <version>5.2.2.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud.stream.app</groupId>
@@ -126,7 +122,17 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
-                <version>4.3.4.RELEASE</version>
+                <version>5.3.9</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>2.17.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-to-slf4j</artifactId>
+                <version>2.17.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

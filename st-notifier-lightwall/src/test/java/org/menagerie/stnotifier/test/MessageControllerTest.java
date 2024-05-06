@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/8/16, 10:59 PM
  */
 public class MessageControllerTest

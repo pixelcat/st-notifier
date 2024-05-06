@@ -10,7 +10,7 @@ import org.menagerie.stnotifier.i2c.I2CRenderTargetImpl;
 import java.io.IOException;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 11/23/16, 3:12 PM
  */
 public class I2CRenderTargetTest

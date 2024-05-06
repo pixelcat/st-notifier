@@ -15,7 +15,7 @@ import org.menagerie.stnotifier.tasks.DisplayScheduledTask;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/8/16, 10:20 PM
  */
 public class DisplayScheduledTaskTest

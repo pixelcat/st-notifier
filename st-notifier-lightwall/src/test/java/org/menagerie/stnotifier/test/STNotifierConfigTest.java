@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 11/15/16, 9:59 PM
  */
 public class STNotifierConfigTest

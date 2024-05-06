@@ -21,7 +21,7 @@ import java.io.Reader;
 import java.util.List;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/17/16, 3:13 PM
  */
 public class OAuth2Adapter

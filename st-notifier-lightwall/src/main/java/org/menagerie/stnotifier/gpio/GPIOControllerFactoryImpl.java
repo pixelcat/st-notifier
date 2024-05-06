@@ -4,7 +4,7 @@ import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 12/4/16, 10:10 AM
  */
 public class GPIOControllerFactoryImpl implements GPIOControllerFactory

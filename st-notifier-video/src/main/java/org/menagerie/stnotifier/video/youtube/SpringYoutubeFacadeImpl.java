@@ -19,10 +19,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/19/16, 9:53 PM
  */
 public class SpringYoutubeFacadeImpl implements SpringYoutubeFacade
@@ -81,7 +82,7 @@ public class SpringYoutubeFacadeImpl implements SpringYoutubeFacade
 
         InputStreamContent mediaContent = new InputStreamContent("video/*", new FileInputStream(new File(filename)));
 
-        YouTube.Videos.Insert videoInsert = youTube.videos().insert("snippet,statistics,status", video, mediaContent);
+        YouTube.Videos.Insert videoInsert = youTube.videos().insert(Arrays.asList("snippet", "statistics", "status"), video, mediaContent);
 
         MediaHttpUploader uploader = videoInsert.getMediaHttpUploader();
 

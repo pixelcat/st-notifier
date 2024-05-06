@@ -3,7 +3,7 @@ package org.menagerie.stnotifier.binding;
 import org.menagerie.stnotifier.model.STMessage;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/17/16, 5:23 PM
  */
 public class VideoStartMessage

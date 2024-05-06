@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.concurrent.Future;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 12/9/16, 12:22 PM
  */
 public class AsyncVideoUploaderImpl implements AsyncVideoUploader

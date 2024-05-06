@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/16/16, 2:14 PM
  */
 public class CameraLoaderTest

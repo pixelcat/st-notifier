@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/8/16, 11:28 AM
  */
 @Component
@@ -29,12 +30,12 @@ public class MessageController
 {
     private static final Logger log = LoggerFactory.getLogger(MessageController.class);
 
-    private STMessageRepository stMessageRepository;
+    private STMessageRepository<STMessage> stMessageRepository;
     private STNotifierConfig stNotifierConfig;
     private MongoTemplate mongoTemplate;
 
     @Autowired
-    public void setStMessageRepository(STMessageRepository stMessageRepository)
+    public void setStMessageRepository(STMessageRepository<STMessage> stMessageRepository)
     {
         this.stMessageRepository = stMessageRepository;
     }
@@ -55,7 +56,7 @@ public class MessageController
     @ResponseBody
     public List<STMessage> getRecentlyDisplayedMessages()
     {
-        PageRequest pageRequest = new PageRequest(0, 30);
+        PageRequest pageRequest = PageRequest.of(0, 30);
         return stMessageRepository.findByDisplayedOrderByStickyToTopDescReceivedDateDesc(true, pageRequest);
     }
 

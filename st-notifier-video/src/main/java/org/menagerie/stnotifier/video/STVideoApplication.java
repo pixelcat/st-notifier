@@ -27,14 +27,14 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 
 /**
- * Copyright 2016 - Aaron Stewart
+ * Copyright 2016 - Kenzi Stewart
  * Date: 10/16/16, 5:09 PM
  */
 @SpringBootApplication
 @EnableAsync
 public class STVideoApplication extends AsyncConfigurerSupport
 {
-    private static Logger log = LoggerFactory.getLogger(STVideoApplication.class);
+    @SuppressWarnings("unused") private static final Logger log = LoggerFactory.getLogger(STVideoApplication.class);
 
     public static void main(String[] args)
     {
@@ -54,12 +54,12 @@ public class STVideoApplication extends AsyncConfigurerSupport
     @Bean
     OAuth2Adapter insteonOAuth2Adapter()
     {
-        return new OAuth2Adapter(pluggableInsteonVerificationCodeReceiver());
+        return new OAuth2Adapter(pluggableInsteonVerificationCodeReceiver(), "");
     }
 
     @Bean
     OAuth2Adapter nestOAuth2Adapter() {
-        return new OAuth2Adapter(pluggableNestVerificationCodeReceiver());
+        return new OAuth2Adapter(pluggableNestVerificationCodeReceiver(), "");
     }
 
     @Bean
@@ -90,7 +90,7 @@ public class STVideoApplication extends AsyncConfigurerSupport
 
     @Bean
     HttpTransport httpTransport() {
-        return new ApacheHttpTransport();
+        return new ApacheHttpTransport.Builder().build();
     }
 
     @Bean
